@@ -51,6 +51,8 @@ async function addConfirmation(email, urlHash){
         "urlHash": urlHash,
         "aciveTill": activeTill
     });
+    client.close()
+    return
 }
 
 async function sendConfirmationEmail(email, hash, host){
@@ -79,6 +81,7 @@ async function isHashConfActive(urlHash){
         "urlHash": urlHash,
         "activeTill": {$gt: new Date().toISOString()}
     })
+    client.close()
     return (result.length > 0) ? true : false
 }
 
@@ -86,6 +89,7 @@ async function getConfirmedUserEmail(urlHash){
     const client = await mongo.getConnection();
     const col = client.db("app").collection("confirmations");
     let result = await col.findOne({"urlHash": urlHash})
+    client.close()
     return result.email
 }
 
@@ -96,6 +100,8 @@ async function activateUserAccount(email){
         {"email": email},
         {"$set": {"activated": true}}
     )
+    client.close()
+    return
 }
 
 async function removeConfirmation(email){
@@ -104,6 +110,8 @@ async function removeConfirmation(email){
     col.deleteOne({
         "email": email
     })
+    client.close()
+    return
 }
 
 async function confirmUser(req, res, next){

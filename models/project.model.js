@@ -10,6 +10,7 @@ async function getAllProjects(req, res, next){
     const db = client.db(dbName);
     const col = db.collection("projects");
     let result = await col.find({}).toArray();
+    client.close()
     res.send(result)
 }
 
@@ -65,7 +66,7 @@ async function saveAllProjects(req, res, next){
             projectId: String(p._id)
         })
     });
-
+    client.close()
     next()
 }
 

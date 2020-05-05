@@ -1,17 +1,17 @@
 import axios from 'axios'
 
 // const instance = axios.create({
-//     baseUrl: "http://localhost:3000/"
+//     baseUrl: "${window.location.origin}/"
 // })
 
 async function getAllProjects() {
-	const result = await axios.get('http://localhost:3000/api/project/projects');
+	const result = await axios.get(`${window.location.origin}/api/project/projects`);
 	return result.data
 }
 
 async function saveAllProjects(form) {
 	console.log(form);
-    const result = await axios.post('http://localhost:3000/api/project/projects', form)
+    const result = await axios.post(`${window.location.origin}/api/project/projects`, form)
     return result.data;
 }
 

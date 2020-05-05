@@ -26,6 +26,7 @@ async function getSubTests(req, res, next){
         projectId: projectId,
         groupId: groupId
     }).toArray();
+    client.close()
     res.send(result)
 }
 
@@ -38,7 +39,7 @@ async function getSteps(req, res, next){
         "projectId": projectId,
         "groupId": groupId,
     }).toArray();
-
+    client.close()
     res.send(result[0].steps)
 }
 
@@ -58,7 +59,7 @@ async function saveSteps(req, res, next){
         "projectId": projectId,
         "groupId": groupId,
     },{$set: {steps: items}})
-
+    client.close()
     next()
 }
 
@@ -120,7 +121,7 @@ async function saveAllTests(req, res, next){
     toDelete.forEach(p => {
         col.deleteOne({_id: p._id})
     });
-
+    client.close()
     next()
 }
 

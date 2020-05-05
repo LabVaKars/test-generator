@@ -12,6 +12,7 @@ async function getProjectGroups(req, res, next){
         projectId: projectId,
         groupId: "root"
     }).toArray();
+    client.close()
     res.send(result)
 }
 
@@ -24,6 +25,7 @@ async function getSubGroups(req, res, next){
         projectId: projectId,
         groupId: groupId
     }).toArray();
+    client.close()
     res.send(result)
 }
 
@@ -117,7 +119,7 @@ async function saveAllGroups(req, res, next){
     toDelete.forEach(p => {
         deleteGroup(p.projectId, p._id)
     });
-
+    client.close()
     // res.status(200)
     next()
 }
@@ -192,6 +194,7 @@ async function getBreadcrumb(projectId, groupId, testId){
         projectId: project._id,
         groupId: "root"
     })
+    client.close()
     return breadcrumb.reverse()
 }
 
