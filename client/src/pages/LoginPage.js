@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import axios from 'axios'
 
@@ -10,37 +10,37 @@ import TextInput from '../components/common/TextInput'
 import AuthContext from '../hooks/AuthContext'
 
 
-export default function LoginPage(props) {
+export default function LoginPage() {
 
 	let history = useHistory()
 	const {auth, setAuth} = useContext(AuthContext)
-	console.log(auth);
+	console.log(auth)
 	
 
 	const INITIAL_STATE = {
-		email: "",
-		password: ""
+		email: '',
+		password: ''
 	}
 
 	const {values, handleChange, errors, setErrors, validate} = useLoginFormValidation(INITIAL_STATE)
 
 	async function handleClick(){
 		if(validate()){
-			axios.post(`/api/auth/login`, {email: values.email, password: values.password})
-			.then(res => {
-				setAuth({
-					isAuthenticated: true,
-					user: values.email
+			axios.post('/api/auth/login', {email: values.email, password: values.password})
+				.then(() => {
+					setAuth({
+						isAuthenticated: true,
+						user: values.email
+					})
+					history.push('/projects')
 				})
-				history.push('/projects')
-			})
-			.catch(e => {
-				console.log(e);
-				setErrors({
-					form: "Username or password is incorrect"
-				})
+				.catch(e => {
+					console.log(e)
+					setErrors({
+						form: 'Username or password is incorrect'
+					})
 				
-			})
+				})
 
 		}
 	}
@@ -79,7 +79,7 @@ export default function LoginPage(props) {
 					</div>
 				</div>
 				<div className="card-footer">
-					<Button name={"Login"} handleClick={handleClick} />
+					<Button name={'Login'} handleClick={handleClick} />
 				</div>
 			</div>
 			<div className="container-fluid">

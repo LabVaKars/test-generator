@@ -13,7 +13,7 @@ Button.propTypes = {
 	handleClick: PropTypes.func,
 }
 
- export default function Button(props){
+export default function Button(props){
 
 	const {name, icon, handleClick, disabled} = props
 	const buttonName = (icon == undefined) 
@@ -30,6 +30,6 @@ Button.propTypes = {
 			{buttonName}
 		</button>
 	)
- }
+}
 
 

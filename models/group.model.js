@@ -1,31 +1,38 @@
 const ObjectId = require("mongodb").ObjectId;
 const mongo = require("../db");
+const projectModel = require("./project.model")
 
 const dbName = "app";
 
 async function getProjectGroups(req, res, next){
     const {projectId} = req.params
-    const client = await mongo.getConnection();
-    const db = client.db(dbName);
-    const col = db.collection("groups");
-    let result = await col.find({
-        projectId: projectId,
-        groupId: "root"
-    }).toArray();
-    client.close()
+    let result = []
+    if(projectModel.isUsersProject(req.session.user, projectId)){
+        const client = await mongo.getConnection();
+        const db = client.db(dbName);
+        const col = db.collection("groups");
+        result = await col.find({
+            projectId: projectId,
+            groupId: "root"
+        }).toArray();
+        client.close()
+    }
     res.send(result)
 }
 
 async function getSubGroups(req, res, next){
     const {projectId, groupId} = req.params
-    const client = await mongo.getConnection();
-    const db = client.db(dbName);
-    const col = db.collection("groups");
-    let result = await col.find({
-        projectId: projectId,
-        groupId: groupId
-    }).toArray();
-    client.close()
+    let result = []
+    if(projectModel.isUsersProject(req.session.user, projectId)){
+        const client = await mongo.getConnection();
+        const db = client.db(dbName);
+        const col = db.collection("groups");
+        result = await col.find({
+            projectId: projectId,
+            groupId: groupId
+        }).toArray();
+        client.close()
+    }
     res.send(result)
 }
 
@@ -119,7 +126,7 @@ async function saveAllGroups(req, res, next){
     toDelete.forEach(p => {
         deleteGroup(p.projectId, p._id)
     });
-    client.close()
+    // client.close()
     // res.status(200)
     next()
 }

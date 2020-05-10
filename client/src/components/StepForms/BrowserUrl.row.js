@@ -7,7 +7,7 @@ BrowserUrlRow.propTypes = {
 
 export default function BrowserUrlRow(props) {
 
-    const {form} = props;
+	const {form} = props
 
 	return (
 		<div>

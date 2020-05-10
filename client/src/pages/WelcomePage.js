@@ -1,8 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types'
 
-export default function WelcomePage(props) {
+export default function WelcomePage() {
 	return (
 		<React.Fragment>
 			<h1>Welcome, stranger! This is an test code generation application.</h1>

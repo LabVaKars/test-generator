@@ -6,8 +6,8 @@ export default function TextInput(props) {
 		handleChange, value,
 		type, name
 	} = props
-	if(!type) type = "text"
-	if(!type) name = ""
+	if(!type) type = 'text'
+	if(!type) name = ''
 	return (
 		<div className="input-group input-group-sm mb-3">
 			<div className="input-group-prepend">

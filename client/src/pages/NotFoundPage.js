@@ -1,8 +1,7 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types'
 
-export default function NotFoundPage(props) {
+export default function NotFoundPage() {
 	return (
 		<React.Fragment>
 			<h1>404 Not found</h1>
@@ -11,4 +10,3 @@ export default function NotFoundPage(props) {
 	)
 }
 
-NotFoundPage.propTypes = {}

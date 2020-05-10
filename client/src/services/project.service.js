@@ -5,19 +5,19 @@ import axios from 'axios'
 // })
 
 async function getAllProjects() {
-	const result = await axios.get(`${window.location.origin}/api/project/projects`);
+	const result = await axios.get(`${window.location.origin}/api/project/projects`)
 	return result.data
 }
 
 async function saveAllProjects(form) {
-	console.log(form);
-    const result = await axios.post(`${window.location.origin}/api/project/projects`, form)
-    return result.data;
+	console.log(form)
+	const result = await axios.post(`${window.location.origin}/api/project/projects`, form)
+	return result.data
 }
 
 const projectService = {
-    getAllProjects,
-    saveAllProjects,
+	getAllProjects,
+	saveAllProjects,
 }
 
 export default projectService

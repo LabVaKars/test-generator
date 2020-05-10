@@ -1,0 +1,20 @@
+import update from 'immutability-helper'
+import { CLEAN_FORM } from 'constants/StepTypes/StepFormCommon.types'
+import { CHANGE_VALUE } from 'constants/StepTypes/ElemSetValue.types'
+
+const handlers = {
+	[CLEAN_FORM]: (state) => {
+		return update(state, {$merge: { value:'' }})
+	},
+	[CHANGE_VALUE]: (state, {value}) => {
+		return update(state, {$merge: { value: value }})
+	},
+	DEFAULT: state => state,
+}
+
+const ElementSetValueReducer = (state, action) => {
+	let handle = handlers[action.type] || handlers.DEFAULT
+	return handle(state, action)
+}
+
+export default ElementSetValueReducer

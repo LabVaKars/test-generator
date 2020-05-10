@@ -1,5 +1,6 @@
 const ObjectId = require("mongodb").ObjectId;
 const mongo = require("../db");
+const projectModel = require("./project.model")
 
 const dbName = "app";
 const testCollection = "tests";
@@ -19,14 +20,17 @@ const testCollection = "tests";
 
 async function getSubTests(req, res, next){
     const {projectId, groupId} = req.params
-    const client = await mongo.getConnection();
-    const db = client.db(dbName);
-    const col = db.collection("tests");
-    let result = await col.find({
-        projectId: projectId,
-        groupId: groupId
-    }).toArray();
-    client.close()
+    let result = []
+    if(projectModel.isUsersProject(req.session.user, projectId)){
+        const client = await mongo.getConnection();
+        const db = client.db(dbName);
+        const col = db.collection("tests");
+        result = await col.find({
+            projectId: projectId,
+            groupId: groupId
+        }).toArray();
+        client.close()
+    }
     res.send(result)
 }
 
@@ -55,7 +59,7 @@ async function saveSteps(req, res, next){
 
     console.log(projectId, groupId, testId);
 
-    col.updateOne({
+    await col.updateOne({
         "projectId": projectId,
         "groupId": groupId,
     },{$set: {steps: items}})
@@ -121,7 +125,7 @@ async function saveAllTests(req, res, next){
     toDelete.forEach(p => {
         col.deleteOne({_id: p._id})
     });
-    client.close()
+    // client.close()
     next()
 }
 

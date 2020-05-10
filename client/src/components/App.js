@@ -15,45 +15,35 @@ import RegisterPage from 'pages/RegisterPage'
 import AuthWrapper from 'components/AuthWrapper'
 import GeneratorPage from '../pages/GeneratorPage'
 
-export class App extends React.Component {
-	constructor() {
-		super()
-	}
+export function App(props){
 
-	// Добавление нового проекта(неактуально)
-	// 1. Запрос на добавление нового проекта(пустого) в базе
-	// 2. Возвраи ид
-	// 3. Переход на страницу редактирования проекта
-
-	render() {
-		return (
-			<>
-				<Header />
-				<Switch>
-					<Route exact path="/register" component={RegisterPage} />
-					<Route exact path="/login" component={LoginPage} />
-					<Route exact path="/projects" component={AuthWrapper(MyProjectsPage)} />
-					<Route exact path="/generate" component={AuthWrapper(GeneratorPage)} />
-					{/* <Route exact path="/about" component={AboutPage} /> */}
-					<Route path="/project/:project_id" render={({match}) => (
-						<>
-							<Route exact path={`${match.url}/`} render={AuthWrapper(EditProjectPage)} />
-							<Route path={`${match.url}/group/:group_id`} render={({match}) => (
-								<>
-									<Route exact path={`${match.url}/`} render={AuthWrapper(EditGroupPage)} />
-									<Route path={`${match.url}/test/:test_id`} render={({match}) => (
-										<>
-											<Route exact path={`${match.url}/`} render={AuthWrapper(EditTestPage)} />
-										</>
-									)}/>
-								</>
-							)}/>
-						</>
-					)} />
-					<Route exact path="/" component={AboutPage} />
-					<Route component={NotFoundPage} />
-				</Switch>
-			</>
-		)
-	}
+	return (
+		<>
+			<Header />
+			<Switch>
+				<Route exact path="/register" component={RegisterPage} />
+				<Route exact path="/login" component={LoginPage} />
+				<Route exact path="/projects" component={AuthWrapper(MyProjectsPage)} />
+				<Route exact path="/generate" component={AuthWrapper(GeneratorPage)} />
+				{/* <Route exact path="/about" component={AboutPage} /> */}
+				<Route path="/project/:project_id" render={({match}) => (
+					<>
+						<Route exact path={`${match.url}/`} component={AuthWrapper(EditProjectPage)} />
+						<Route path={`${match.url}/group/:group_id`} render={({match}) => (
+							<>
+								<Route exact path={`${match.url}/`} component={AuthWrapper(EditGroupPage)} />
+								<Route path={`${match.url}/test/:test_id`} render={({match}) => (
+									<>
+										<Route exact path={`${match.url}/`} component={AuthWrapper(EditTestPage)} />
+									</>
+								)}/>
+							</>
+						)}/>
+					</>
+				)} />
+				<Route exact path="/" component={WelcomePage} />
+				<Route component={NotFoundPage} />
+			</Switch>
+		</>
+	)
 }

@@ -1,7 +1,8 @@
-const PREFIX = "STEP";
+const PREFIX = 'STEP'
 
 export const INIT_STEPS =               `${PREFIX}:INIT_STEPS`
 export const ADD_STEP =                 `${PREFIX}:ADD_STEP`
+export const ADD_ELEM_STEP =            `${PREFIX}:ADD_ELEM_STEP`
 export const CLONE_STEP =               `${PREFIX}:CLONE_STEP`
 export const DELETE_STEP =              `${PREFIX}:DELETE_STEP`
 export const TOGGLE_SELECT_STEP =       `${PREFIX}:TOGGLE_SELECT_STEP`

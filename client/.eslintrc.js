@@ -1,5 +1,6 @@
 module.exports = {
 	'env': {
+		'node': true,
 		'browser': true,
 		'es6': true
 	},
@@ -19,24 +20,27 @@ module.exports = {
 		'sourceType': 'module'
 	},
 	'plugins': [
-		'react'
+		// 'react',
+		'react-hooks',
 	],
 	'rules': {
-		'indent': [
-			'error',
-			'tab'
-		],
-		'linebreak-style': [
-			'error',
-			'windows'
-		],
-		'quotes': [
-			'error',
-			'single'
-		],
-		'semi': [
-			'error',
-			'never'
-		]
+		"react-hooks/rules-of-hooks": "error",
+		"react-hooks/exhaustive-deps": "warn",
+		// 'indent': [
+		// 	'error',
+		// 	'tab'
+		// ],
+		// 'linebreak-style': [
+		// 	'error',
+		// 	'windows'
+		// ],
+		// 'quotes': [
+		// 	'error',
+		// 	'single'
+		// ],
+		// 'semi': [
+		// 	'error',
+		// 	'never'
+		// ]
 	}
 }

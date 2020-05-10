@@ -4,32 +4,32 @@ import groupService from 'services/group.service'
 
 function useGroupBreadcrumb(projectId, groupId, testId){
 
-    const [breadcrumb, setBreadcrumb] = useState([])
+	const [breadcrumb, setBreadcrumb] = useState([])
 
-    function serverToLocalState(groups){
+	function serverToLocalState(groups){
 
-        let result = groups.map((b) => {
-            return {
-                name: b.name,
-                link: (b.groupId && b.groupId != 'root') ? `/project/${projectId}/group/${b.groupId}` : `/project/${projectId}`  
-            }
-        })
-        return result
-    }
+		let result = groups.map((b) => {
+			return {
+				name: b.name,
+				link: (b.groupId && b.groupId != 'root') ? `/project/${projectId}/group/${b.groupId}` : `/project/${projectId}`  
+			}
+		})
+		return result
+	}
 
-    async function getBreadcrumbData(){
+	async function getBreadcrumbData(){
         
-        let names = await groupService.getGroupBreadcrumb(projectId, groupId, testId)
-        console.log(names);
+		let names = await groupService.getGroupBreadcrumb(projectId, groupId, testId)
+		console.log(names)
         
-        setBreadcrumb(serverToLocalState(names))
-    }
+		setBreadcrumb(serverToLocalState(names))
+	}
 
-    return {
-        breadcrumb,
-        getBreadcrumbData
-    }
+	return {
+		breadcrumb,
+		getBreadcrumbData
+	}
 
 }
 
-export default useGroupBreadcrumb;
+export default useGroupBreadcrumb

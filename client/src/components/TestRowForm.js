@@ -10,32 +10,32 @@ TestRowForm.propTypes = {
 
 export default function TestRowForm(props) {
 
-    const {selectedTest, reducer} = props
+	const {selectedTest, reducer} = props
 
-    let name, description
+	let name, description
 
-    if(selectedTest && selectedTest.length == 1){
+	if(selectedTest && selectedTest.length == 1){
 
-        let st = selectedTest[0]
+		let st = selectedTest[0]
 
-        console.log(st);
+		console.log(st)
         
-        return (
-            <>
-                <TextInput 
-                    label="Test name" placeholder="Enter name for your group..."
-                    handleChange={(e) => reducer({type: CHANGE_NAME, value: e.target.value, id: st.id})} 
-                    value={st.name}/>
-                <TextInput 
-                    label="Test description" placeholder="Enter description for your group..."
-                    handleChange={(e) => reducer({type: CHANGE_DESCRIPTION, value: e.target.value, id: st.id})} 
-                    value={st.description}/>
-            </>
-        )
-    } else {
-        return <>
-            <div>Empty Form</div>
-        </>
-    }
+		return (
+			<>
+				<TextInput 
+					label="Test name" placeholder="Enter name for your group..."
+					handleChange={(e) => reducer({type: CHANGE_NAME, value: e.target.value, id: st.id})} 
+					value={st.name}/>
+				<TextInput 
+					label="Test description" placeholder="Enter description for your group..."
+					handleChange={(e) => reducer({type: CHANGE_DESCRIPTION, value: e.target.value, id: st.id})} 
+					value={st.description}/>
+			</>
+		)
+	} else {
+		return <>
+			<div>Empty Form</div>
+		</>
+	}
 }
 

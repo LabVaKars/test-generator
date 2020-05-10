@@ -1,0 +1,48 @@
+import React from 'react'
+import PropTypes from 'prop-types'
+import shortid from 'shortid'
+import { CURRENT_FORM_REDUCER, ADD_ELEM_STEP } from '../../constants/TestTypes/StepForm.types'
+import { CHANGE_NAME, CHANGE_CSS_SELECTOR } from '../../constants/StepTypes/SelectElem.types'
+import TextInput from 'common/TextInput'
+import Button from 'common/Button'
+import { EMPTY_STEP } from '../../constants/Step.types'
+
+SelectElementForm.propTypes = {
+	id: PropTypes.number,
+}
+
+export default function SelectElementForm(props) {
+
+	const {reducer, selectedStep} = props
+
+	let ss = selectedStep[0]
+
+	let name = ss.form.name
+	let cssSelector = ss.form.cssSelector
+
+	function changeName(e){
+		reducer({type: CURRENT_FORM_REDUCER, action: CHANGE_NAME, params: {name: e.target.value}})
+	}
+
+	function changeCss(e){
+		reducer({type: CURRENT_FORM_REDUCER, action: CHANGE_CSS_SELECTOR, params: {cssSelector: e.target.value}})
+	}
+
+	function addElementStep(){
+		let id = shortid.generate()
+		reducer({type: ADD_ELEM_STEP, id: id, stype: EMPTY_STEP, elemId: ss.id})
+	}
+
+	return (
+		<>
+			<TextInput label="Name" placeholder="Name..." name="name" 
+				handleChange={changeName} value={name}    
+			/>
+			<TextInput label="CSS selector" placeholder="CSS selector..." name="cssValue" 
+				handleChange={changeCss} value={cssSelector}    
+			/>
+			<Button name="Add Element Step" handleClick={addElementStep}/>
+		</>
+	)
+}
+

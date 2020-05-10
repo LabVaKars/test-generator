@@ -14,7 +14,7 @@ export default function GroupRow(props) {
 	const {
 		id,
 		serverId,
-        name,
+		name,
 		description,
 		isSelected,
 		index,
@@ -88,9 +88,9 @@ export default function GroupRow(props) {
 						}}></i>
 						{serverId && (
 							// <Link to={`/project/${projectId}/group/${serverId}`}>
-								<i className="fas fa-edit text-primary" onClick={() => {
-									history.push(`/project/${projectId}/group/${serverId}`)
-								}}></i>
+							<i className="fas fa-edit text-primary" onClick={() => {
+								history.push(`/project/${projectId}/group/${serverId}`)
+							}}></i>
 							// </Link>
 						)}
 					</div>

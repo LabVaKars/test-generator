@@ -7,93 +7,93 @@ import { ADD_PROJECT, DELETE_PROJECT, TOGGLE_SELECT_PROJECT, SAVE_CHANGES, INIT_
 
 function useProjectTableForm(){
 
-    let initialState = {
-        projects: [],
-        hasChanges: false
-    }
+	let initialState = {
+		projects: [],
+		hasChanges: false
+	}
 
-    const [projectsLoading, setProjectsLoading] = useState(false)
+	const [projectsLoading, setProjectsLoading] = useState(false)
 
-    const [projectForm, projectFormR] = useReducer(ProjectFormReducer, initialState);
+	const [projectForm, projectFormR] = useReducer(ProjectFormReducer, initialState)
 
-    function serverToLocalState(projects){
-        console.log(projects);
+	function serverToLocalState(projects){
+		console.log(projects)
         
-        let result = projects.map((p) => {
-            let localId = shortid.generate()
-            return {
-                id: localId,
-                serverId: p._id,
-                name: p.name,
-                baseUrl: p.baseUrl,
-                isSelected: false
-            }
-        })
-        return result
-    }
+		let result = projects.map((p) => {
+			let localId = shortid.generate()
+			return {
+				id: localId,
+				serverId: p._id,
+				name: p.name,
+				baseUrl: p.baseUrl,
+				isSelected: false
+			}
+		})
+		return result
+	}
 
-    function localToServerState(projects){
-        let result = projects.map((p) => {
-            return {
-                _id: p.serverId,
-                name: p.name,
-                baseUrl: p.baseUrl
-            }
-        })
-        return result
-    }
+	function localToServerState(projects){
+		let result = projects.map((p) => {
+			return {
+				_id: p.serverId,
+				name: p.name,
+				baseUrl: p.baseUrl
+			}
+		})
+		return result
+	}
 
-    async function getProjectData(){
-        setProjectsLoading(true)
-        let projects = await projectService.getAllProjects()
-        setProjectsLoading(false)
-        console.log(projects);
-        projects = serverToLocalState(projects)
-        projectFormR({type:INIT_PROJECTS, projects: projects})
-    } 
+	async function getProjectData(){
+		setProjectsLoading(true)
+		let projects = await projectService.getAllProjects()
+		setProjectsLoading(false)
+		console.log(projects)
+		projects = serverToLocalState(projects)
+		projectFormR({type:INIT_PROJECTS, projects: projects})
+	} 
 
-    async function updateProjectData(){
-        console.log(projectForm);
-        setProjectsLoading(true)
-        let projects = await projectService.saveAllProjects(localToServerState(projectForm.projects))
-        setProjectsLoading(false)
-        console.log(projects);
-        projects = serverToLocalState(projects)
-        projectFormR({type:INIT_PROJECTS, projects: projects})
-        projectFormR({type: SAVE_CHANGES})
-    }
+	async function updateProjectData(){
+		console.log(projectForm)
+		setProjectsLoading(true)
+		let projects = await projectService.saveAllProjects(localToServerState(projectForm.projects))
+		setProjectsLoading(false)
+		console.log(projects)
+		projects = serverToLocalState(projects)
+		projectFormR({type:INIT_PROJECTS, projects: projects})
+		projectFormR({type: SAVE_CHANGES})
+	}
 
-    function addProject(){
-        let id = shortid.generate()
-        projectFormR({type:ADD_PROJECT, id: id});
-    }
+	function addProject(){
+		let id = shortid.generate()
+		projectFormR({type:ADD_PROJECT, id: id})
+	}
 
-    function deleteProject(id){
-        projectFormR({type:DELETE_PROJECT, id: id})
-    }
+	function deleteProject(id){
+		projectFormR({type:DELETE_PROJECT, id: id})
+	}
 
-    function selectProject(id){
-        projectFormR({type:TOGGLE_SELECT_PROJECT, id: id, multiSelect: false})
-    }
+	function selectProject(id){
+		projectFormR({type:TOGGLE_SELECT_PROJECT, id: id, multiSelect: false})
+	}
 
-    function saveChanges(){
-        updateProjectData()
-        console.log("Changes saved");
+	function saveChanges(){
+		updateProjectData()
+		console.log('Changes saved')
         
-    }
+	}
 
-    return {
-        projectForm,
-        projectFormR,
-        getProjectData,
-        updateProjectData,
-        addProject,
-        deleteProject,
-        selectProject,
-        saveChanges,
-        projectsLoading,
-    }
+	return {
+		projectForm,
+		projectFormR,
+		getProjectData,
+		updateProjectData,
+		addProject,
+		deleteProject,
+		selectProject,
+		saveChanges,
+		projectsLoading,
+	}
 
 }
 
-export default useProjectTableForm;
+export default useProjectTableForm

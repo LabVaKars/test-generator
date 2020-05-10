@@ -6,9 +6,9 @@ import AuthContext from '../hooks/AuthContext'
 import authService from 'services/auth.service'
 
 const leftLinks = [
-	{path: "/", label: "Home"},
-	{path: "/projects", label: "My Projects"},
-	{path: "/generate", label: "Generator"},
+	{path: '/', label: 'Home'},
+	{path: '/projects', label: 'My Projects'},
+	{path: '/generate', label: 'Generator'},
 ]
 
 
@@ -19,10 +19,10 @@ export default function Header(props) {
 
 	function signOut(){
 		authService.logoutUser()
-		.then(setAuth({
-			isAuthenticated: false,
-			user: null
-		}))
+			.then(setAuth({
+				isAuthenticated: false,
+				user: null
+			}))
 	}
 	
 	if(auth && auth.isAuthenticated){
@@ -58,11 +58,11 @@ export default function Header(props) {
 				</ul>
 				<ul className="navbar-nav">
 					<li className="nav-item">
-						<Link to={"/login"}><span className="nav-link">Sign In</span></Link>
+						<Link to={'/login'}><span className="nav-link">Sign In</span></Link>
 					</li>
 					<li className="navbar-text">or</li>
 					<li>
-						<Link to={"/register"}><span className="nav-link">Sign Up</span></Link>
+						<Link to={'/register'}><span className="nav-link">Sign Up</span></Link>
 					</li>
 				</ul>
 			</nav>

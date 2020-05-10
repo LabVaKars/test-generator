@@ -50,15 +50,14 @@ async function addConfirmation(email, urlHash){
         "email": email,
         "urlHash": urlHash,
         "aciveTill": activeTill
-    });
-    client.close()
+    }).then(() => client.close())
     return
 }
 
 async function sendConfirmationEmail(email, hash, host){
 
     let mailOptions = {
-        from: appConfig.REPLY_EMAIL,
+        from: process.env.REPLY_EMAIL,
         to: email,
         subject: 'Registration confirmation',
         text: `Please click this link ${host}/api/auth/activ/${hash}`
@@ -90,7 +89,7 @@ async function getConfirmedUserEmail(urlHash){
     const col = client.db("app").collection("confirmations");
     let result = await col.findOne({"urlHash": urlHash})
     client.close()
-    return result.email
+    if(result) return result.email
 }
 
 async function activateUserAccount(email){
@@ -109,8 +108,8 @@ async function removeConfirmation(email){
     const col = client.db("app").collection("confirmations");
     col.deleteOne({
         "email": email
-    })
-    client.close()
+    }).then(() => client.close())
+    
     return
 }
 

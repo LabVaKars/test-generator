@@ -5,7 +5,8 @@ Example.propTypes = {
 	id: PropTypes.number,
 }
 
-export default function Example(props) {
+export default function Example() {
+
 	return (
 		<div>
             Hello, world!

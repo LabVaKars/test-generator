@@ -1,4 +1,4 @@
-const PREFIX = "PROJECT"
+const PREFIX = 'PROJECT'
 // array reducers
 export const ADD_PROJECT = `${PREFIX}:ADD_PROJECT`
 export const DELETE_PROJECT = `${PREFIX}:DELETE_PROJECT`

@@ -13,15 +13,15 @@ export default function ProjectList(props) {
     
 	const { projects, renderRow, projectsLoading } = props
 
-    return (
-        <>
-            <table className="table table-bordered">
+	return (
+		<>
+			<table className="table table-bordered">
 				<thead>
 					<tr>
 						<th style={{width: '50px'}}>#</th>
-                        <th>ID</th>
+						<th>ID</th>
 						<th>Project name</th>
-                        <th>Project URL</th>
+						<th>Project URL</th>
 						<th style={{width: '100px'}}>Actions</th>
 					</tr>
 				</thead>
@@ -39,7 +39,7 @@ export default function ProjectList(props) {
 					)}
 				</tbody>
 			</table>
-        </>
+		</>
 	)
 }
 

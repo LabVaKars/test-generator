@@ -1,4 +1,4 @@
-const PREFIX = "TEST"
+const PREFIX = 'TEST'
 // array reducers
 export const ADD_TEST = `${PREFIX}:ADD_TEST`
 export const MOVE_TEST = `${PREFIX}:MOVE_TEST`

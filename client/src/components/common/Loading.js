@@ -8,9 +8,9 @@ Loading.propTypes = {
 export default function Loading(props) {
 
 	return (
-        <div className="spinner-border" role="status">
-            <span className="sr-only">Loading...</span>
-        </div>
+		<div className="spinner-border" role="status">
+			<span className="sr-only">Loading...</span>
+		</div>
 	)
 }
 

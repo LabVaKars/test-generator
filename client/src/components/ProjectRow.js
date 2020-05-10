@@ -11,13 +11,11 @@ ProjectRow.propTypes = {
 export default function ProjectRow(props) {
 
 	let history = useHistory()
-	console.log(history);
 	
-
 	const {
 		id,
 		serverId,
-        name,
+		name,
 		baseUrl,
 		isSelected,
 		index,

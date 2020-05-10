@@ -6,7 +6,7 @@ import GroupTableEdit from 'components/GroupTableEdit'
 export default function EditProjectPage(props) {
 
 	const {match: {path}} = props
-	console.log(path.split('/'));
+	console.log(path.split('/'))
 	
 	const [ , , projectId, , groupId, ] = path.split('/')
 

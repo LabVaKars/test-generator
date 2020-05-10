@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 import StepTableEdit from 'components/StepTableEdit'
 
@@ -14,7 +13,4 @@ export default function EditTestPage(props) {
 			<StepTableEdit projectId={projectId} groupId={groupId} testId={testId} />
 		</>
 	)
-}
-
-EditTestPage.propTypes = {
 }

@@ -7,7 +7,7 @@ EmptyStepForm.propTypes = {
 export default function EmptyStepForm(props) {
 
 	return (
-        <div>Empty step, so form not specified</div>
+		<div>Empty step. Form not specified. Select another step type to see the form</div>
 	)
 }
 

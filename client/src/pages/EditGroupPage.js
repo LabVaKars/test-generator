@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import GroupFormReducer from '../reducers/GroupReducers/GroupForm.reducer'
 
 import GroupTableEdit from '../components/GroupTableEdit'
 

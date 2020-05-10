@@ -1,4 +1,4 @@
-const PREFIX = "GROUP"
+const PREFIX = 'GROUP'
 // array reducers
 export const ADD_GROUP = `${PREFIX}:ADD_GROUP`
 export const MOVE_GROUP = `${PREFIX}:MOVE_GROUP`

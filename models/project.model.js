@@ -1,21 +1,27 @@
 const ObjectId = require("mongodb").ObjectId;
+const usersModel = require('./users.model')
 const mongo = require("../db");
 
 const dbName = "app";
-// const testCollection = "tests";
-const groupsCollection = "groups";
 
 async function getAllProjects(req, res, next){
     const client = await mongo.getConnection();
     const db = client.db(dbName);
     const col = db.collection("projects");
-    let result = await col.find({}).toArray();
+
+    let userId = await usersModel.getUserIdByEmail(req.session.user)
+    console.log(userId);
+    
+    let result = await col.find({userId: String(userId)}).toArray();
     client.close()
     res.send(result)
 }
 
 async function saveAllProjects(req, res, next){
     const items = req.body
+
+    let userId = await usersModel.getUserIdByEmail(req.session.user)
+console.log(userId);
 
     const client = await mongo.getConnection();
     const db = client.db(dbName);
@@ -27,6 +33,7 @@ async function saveAllProjects(req, res, next){
         return p._id == null
     }).map((p) => {
         return {
+            userId: String(userId),
             name: p.name,
             baseUrl: p.baseUrl
         }
@@ -66,8 +73,26 @@ async function saveAllProjects(req, res, next){
             projectId: String(p._id)
         })
     });
-    client.close()
+    // client.close()
     next()
+}
+
+async function isUsersProject(email, projectId){
+
+    let userId = await usersModel.getUserIdByEmail(email)
+    if(userId){
+        const client = await mongo.getConnection();
+        const db = client.db(dbName);
+        const col = db.collection("projects");
+
+        let result = await col.find({
+            _id: ObjectId(projectId),
+            userId: String(userId)
+        }).toArray()
+
+        return result.length > 0
+    }
+    return false
 }
 
 
@@ -79,4 +104,5 @@ async function saveAllProjects(req, res, next){
 module.exports = {
     getAllProjects,
     saveAllProjects,
+    isUsersProject,
 }

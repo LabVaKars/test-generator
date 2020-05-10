@@ -3,14 +3,12 @@ import axios from 'axios'
 // const instance = axios.create({
 //     baseUrl: "${window.location.origin}/"
 // })
-const BASE_URL = window.location.href.slice(0, window.location.href.indexOf())
-
 
 const registerUser = async (credentials) => {
 	await axios.post(`${window.location.origin}/api/auth/register`, credentials)
 }
 
-const loginUser = async (credantials) => {
+const loginUser = async (credentials) => {
 	await axios.post(`${window.location.origin}/api/auth/login`, credentials)
 }
 

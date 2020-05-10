@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-BrowserActionRow.propTypes = {
+EmptyStepRow.propTypes = {
 	id: PropTypes.number,
 }
 
-export default function BrowserActionRow(props) {
+export default function EmptyStepRow(props) {
 
 	return (
 		<div>

@@ -12,6 +12,7 @@ export default function StepRowList(props) {
 				<thead>
 					<tr>
 						<th style={{width: '50px'}}>#</th>
+						<th>Scope</th>
 						<th>Step description</th>
 						<th style={{width: '100px'}}>Actions</th>
 					</tr>

@@ -14,7 +14,7 @@ export default function TestRow(props) {
 	const {
 		id,
 		serverId,
-        name,
+		name,
 		description,
 		isSelected,
 		index,
