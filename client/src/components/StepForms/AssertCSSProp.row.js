@@ -25,7 +25,7 @@ export default function AssertCSSPropRow(props) {
             Assert that CSS property "<span className="text-danger">{form.property}</span>" of element with css value 
             "<span className="text-danger">{parentForm.cssSelector}</span>"&nbsp;
             <span className="text-danger">{sign} {comparator}</span>&nbsp;
-            "<span className="text-danger">{text}</span>"
+            "<span className="text-danger">{form.text}</span>"
 		</div>
 	)
 }

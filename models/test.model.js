@@ -20,21 +20,20 @@ const testCollection = "tests";
 
 
 
-async function getSteps(projectId, groupId){
-    const {projectId, groupId} = req.params
+async function getSteps(projectId, groupId, testId){
     const client = await mongo.getConnection();
     const db = client.db(dbName);
     const col = db.collection("tests");
     let result = await col.find({
         "projectId": projectId,
         "groupId": groupId,
+        "_id": ObjectId(testId)
     }).toArray();
     client.close()
     return result[0].steps
 }
 
-async function saveSteps(projectId, groupId, items){
-    const {projectId, groupId} = req.params
+async function saveSteps(projectId, groupId, testId, items){
 
     console.log("items",items);
 
@@ -42,11 +41,12 @@ async function saveSteps(projectId, groupId, items){
     const db = client.db(dbName);
     const col = db.collection("tests");
 
-    // console.log(projectId, groupId, );
+    console.log(projectId, groupId, testId);
 
     await col.updateOne({
         "projectId": projectId,
         "groupId": groupId,
+        "_id": ObjectId(testId)
     },{$set: {steps: items}})
     client.close()
     return

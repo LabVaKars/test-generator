@@ -6,7 +6,7 @@ import { CHANGE_PROPERTY, CHANGE_SIGN, CHANGE_COMPARATOR, CHANGE_TEXT } from '..
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { property: '', sign: false, comparator: EQUALS, text:'' }})
+		return update(state, {$set: { property: '', sign: false, comparator: EQUALS, text:'' }})
     },
     [CHANGE_PROPERTY]: (state, {property}) => {
         return update(state, {$merge: {property: property}});

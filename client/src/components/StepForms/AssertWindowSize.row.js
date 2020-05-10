@@ -10,10 +10,6 @@ export default function AssertWindowSizeRow(props) {
 
 	const {form} = props
 
-
-    console.log(form);
-    
-
 	return (
 		<div>
             Assert that browser window size is&nbsp;  

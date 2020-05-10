@@ -10,10 +10,7 @@ AssertCookieRow.propTypes = {
 
 export default function AssertCookieRow(props) {
 
-	const {form} = props
-
-    console.log(form);
-    
+	const {form} = props    
 
     let comparator = comparatorOptions.filter((o) => {
         return o.value == form.comparator   

@@ -4,7 +4,7 @@ import { CHOOSE_ACTION } from 'constants/StepTypes/BrowserActionForm.types'
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { action: 1 }})
+		return update(state, {$set: { action: '1' }})
 	},
 	[CHOOSE_ACTION]: (state, {option}) => {
 		return update(state, {$merge: { action: option }})

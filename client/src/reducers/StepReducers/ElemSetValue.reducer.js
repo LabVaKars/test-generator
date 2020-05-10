@@ -4,7 +4,7 @@ import { CHANGE_VALUE } from 'constants/StepTypes/ElemSetValue.types'
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { value:'' }})
+		return update(state, {$set: { value:'' }})
 	},
 	[CHANGE_VALUE]: (state, {value}) => {
 		return update(state, {$merge: { value: value }})

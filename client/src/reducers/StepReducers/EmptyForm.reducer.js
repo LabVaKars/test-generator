@@ -3,7 +3,7 @@ import { CLEAN_FORM } from 'constants/StepTypes/StepFormCommon.types'
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: {}})
+		return update(state, {$set: {}})
 	},
 	DEFAULT: state => state,
 }

@@ -14,8 +14,8 @@ router.get("/:projectId/:groupId/:testId", (req, res, next) => {
     res.set("Content-Type", "application/json")
     next();
 }, async (req, res, next) => {
-    const {projectId, groupId} = req.params
-    let result = await model.getSteps(projectId, groupId)
+    const {projectId, groupId, testId} = req.params
+    let result = await model.getSteps(projectId, groupId, testId)
     res.send(result)
 })
 
@@ -23,12 +23,13 @@ router.post("/:projectId/:groupId/:testId", (req, res, next) => {
     res.set("Content-Type", "application/json")
     next();
 }, async (req, res, next) => {
-    const {projectId, groupId} = req.params
+    const {projectId, groupId, testId} = req.params
     const items = req.body
-    await model.saveSteps(projectId, groupId, items)
+    await model.saveSteps(projectId, groupId, testId, items)
+    next()
 }, async (req, res, next) => {
-    const {projectId, groupId} = req.params
-    let result = await model.getSteps(projectId, groupId)
+    const {projectId, groupId, testId} = req.params
+    let result = await model.getSteps(projectId, groupId, testId)
     res.send(result)
 })
 

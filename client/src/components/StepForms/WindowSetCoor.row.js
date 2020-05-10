@@ -12,10 +12,6 @@ export default function WindowSetCoorRow(props) {
 
 	const {form} = props
 
-
-    console.log(form);
-    
-
 	return (
 		<div>
             Set browser window coordinates to values&nbsp;  

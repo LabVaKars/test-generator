@@ -10,10 +10,6 @@ export default function WindowSetSizeRow(props) {
 
 	const {form} = props
 
-
-    console.log(form);
-    
-
 	return (
 		<div>
             Set browser window size to&nbsp;  

@@ -5,7 +5,7 @@ import { CHANGE_COOKIE, CHANGE_SIGN, CHANGE_COMPARATOR, CHANGE_TEXT } from '../.
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { cookie: '', sign: false, comparator: EQUALS, text:'' }})
+		return update(state, {$set: { cookie: '', sign: false, comparator: EQUALS, text:'' }})
     },
     [CHANGE_COOKIE]: (state, {cookie}) => {
         return update(state, {$merge: {cookie: cookie}});

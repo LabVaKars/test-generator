@@ -12,10 +12,6 @@ export default function AssertWindowCoorRow(props) {
 
 	const {form} = props
 
-
-    console.log(form);
-    
-
 	return (
 		<div>
             Assert that browser window coordinates are&nbsp;  

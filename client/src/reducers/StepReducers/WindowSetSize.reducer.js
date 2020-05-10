@@ -4,7 +4,7 @@ import { CHANGE_WIDTH, CHANGE_HEIGHT } from '../../constants/StepTypes/WindowSet
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { width: 0, height: 0 }})
+		return update(state, {$set: { width: 0, height: 0 }})
     },
     [CHANGE_WIDTH]: (state, {width}) => {
         return update(state, {$merge: {width: width}});

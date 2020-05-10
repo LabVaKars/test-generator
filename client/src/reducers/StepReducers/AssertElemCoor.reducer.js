@@ -4,7 +4,7 @@ import { CHANGE_X_COOR, CHANGE_Y_COOR } from '../../constants/StepTypes/AssertEl
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { x: 0, y: 0 }})
+		return update(state, {$set: { x: 0, y: 0 }})
     },
     [CHANGE_X_COOR]: (state, {xCoor}) => {
         return update(state, {$merge: {x: xCoor}});

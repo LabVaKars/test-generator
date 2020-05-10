@@ -4,7 +4,7 @@ import { CHANGE_OPTION } from '../../constants/StepTypes/PromptAction.types'
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: {answer: 0}})
+		return update(state, {$set: {answer: 0}})
 	},
 	[CHANGE_OPTION]:(state, {answer}) => {
 		return update(state, {$merge: {answer: answer}})

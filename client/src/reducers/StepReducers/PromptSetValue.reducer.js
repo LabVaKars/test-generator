@@ -4,7 +4,7 @@ import { CHANGE_TEXT } from '../../constants/StepTypes/PromptSetValue.types'
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: {text: ''}})
+		return update(state, {$set: {text: ''}})
 	},
 	[CHANGE_TEXT]:(state, {text}) => {
 		return update(state, {$merge: {text: text}})

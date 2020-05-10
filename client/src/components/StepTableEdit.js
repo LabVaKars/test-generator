@@ -91,8 +91,7 @@ function StepTableEdit(props) {
 					renderRow={(stepRow, i) => { 
 						let parentElem
 						if(stepRow.scope == "Element"){
-							let index = stepForm.steps.findIndex(s => {
-								
+							let index = stepForm.steps.findIndex(s => {	
 								return stepRow.elemId == s.id
 							})
 							parentElem = stepForm.steps[index]

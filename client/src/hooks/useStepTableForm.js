@@ -7,6 +7,7 @@ import { ADD_STEP, DELETE_STEP, MOVE_STEP, CHANGE_STEP_BY_ID, CLONE_STEP } from 
 import { EMPTY_STEP } from 'constants/Step.types'
 import { SET_STEPS, TOGGLE_SELECT_STEP, INIT_STEPS } from 'constants/TestTypes/StepForm.types'
 import { SELECT_ELEM } from "../constants/Step.types"
+import { isFlowPredicate } from "@babel/types"
 
 function useStepTableForm(projectId, groupId, testId){
 
@@ -20,34 +21,44 @@ function useStepTableForm(projectId, groupId, testId){
     const [stepsLoading, setStepsLoading] = useState(false)
 
     function serverToLocalState(steps){
-        let result = steps.map((p, index) => {
-            let localId = shortid.generate()
+        // let toLocal
+        let result = steps.map((p) => {
+            console.log(p);
+            
+            // let localId = shortid.generate()
             return {
-                id: localId,
-                projectId: p.projectId,
+                id: p.id,
+                elemId: (p.scope == "Element") ? p.elemId : null,
                 stype: p.stype,
                 scope: p.scope,
                 form: p.form,
-                groupId: p.groupId,
-                testId: p.testId,
-                isSelected: false
             }
+            // if(p.scope == "Element") toLocal.elemId = p.elemId
+            // return toLocal
         })
+        console.log(result);
+        
         return result
     }
 
     function localToServerState(steps){
+        // let toServer
         let result = steps.map((p, i) => {
+            console.log(p);
+            
             return {
-                projectId: p.projectId,
-                groupId: p.groupId,
-                testId: p.testId,
+                id: p.id,
+                elemId: (p.scope == "Element") ? p.elemId : null, 
                 stype: p.stype,
                 scope: p.scope,
                 orderIdx: i,
                 form: p.form,
             }
+            // if(p.scope == "Element") toServer.elemId = p.elemId
+            // return toServer
         })
+        console.log(result);
+        
         return result
     }
 

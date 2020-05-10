@@ -6,7 +6,7 @@ import StepFormReducer from '../TestReducers/StepForm.reducer'
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: {name: "", cssSelector: ""}})
+		return update(state, {$set: {name: "", cssSelector: ""}})
     },
     [CHANGE_NAME]: (state, {name}) => {
         return update(state, {$merge: {name: name}})

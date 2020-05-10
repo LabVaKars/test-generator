@@ -4,7 +4,7 @@ import { CLEAN_FORM } from '../../constants/StepTypes/StepFormCommon.types'
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { link:'' }})
+		return update(state, {$set: { link:'' }})
 	},
 	[CHANGE_URL]: (state, {url}) => {
 		return update(state, {$merge: { link: url }})

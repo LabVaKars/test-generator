@@ -12,9 +12,6 @@ export default function AssertBrowserUrlRow(props) {
 
 	const {form, parentForm} = props
 
-    console.log(form);
-    
-
     let comparator = comparatorOptions.filter((o) => {
         return o.value == form.comparator   
     })[0].name

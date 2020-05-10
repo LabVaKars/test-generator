@@ -12,7 +12,7 @@ export default function CookieUpdateRow(props) {
 	return (
 		<div>
             Update cookie "<span className="text-danger">{form.cookie}</span>" 
-			with value "<span className="text-danger">{form.text}</span>".  
+			with value "<span className="text-danger">{form.value}</span>".  
 		</div>
 	)
 }

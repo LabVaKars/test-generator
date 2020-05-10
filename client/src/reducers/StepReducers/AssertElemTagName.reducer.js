@@ -5,7 +5,7 @@ import { CHANGE_SIGN, CHANGE_COMPARATOR, CHANGE_TEXT } from '../../constants/Ste
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { sign: false, comparator: EQUALS, text:'' }})
+		return update(state, {$set: { sign: false, comparator: EQUALS, text:'' }})
     },
     [CHANGE_SIGN]: (state, {sign}) => {
         return update(state, {$merge: {sign: (sign == 'true') ? true : false}});

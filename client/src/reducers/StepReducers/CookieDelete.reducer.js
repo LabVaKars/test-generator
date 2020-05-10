@@ -4,7 +4,7 @@ import { CHANGE_COOKIE } from '../../constants/StepTypes/CookieDelete.types'
 
 const handlers = {
 	[CLEAN_FORM]: (state) => {
-		return update(state, {$merge: { cookie:'' }})
+		return update(state, {$set: { cookie:'' }})
 	},
 	[CHANGE_COOKIE]: (state, {cookie}) => {
 		return update(state, {$merge: { cookie: cookie }})
