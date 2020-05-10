@@ -9,6 +9,7 @@ if(process.env.NODE_ENV !== 'production') require('dotenv').config()
 
 const authModel = require("./models/auth.model")
 
+const generateRouter = require("./routes/generate.route")
 const authRouter = require("./routes/auth.route")
 const testRouter = require("./routes/test.route")
 const groupRouter = require("./routes/group.route")
@@ -34,7 +35,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'dist')))
 
 
-
+app.use("/api/generate", generateRouter)
 app.use("/api/auth", authRouter);
 app.use("/api/test", testRouter);
 app.use("/api/group", groupRouter);

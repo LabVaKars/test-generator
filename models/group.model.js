@@ -4,26 +4,27 @@ const projectModel = require("./project.model")
 
 const dbName = "app";
 
-async function getProjectGroups(req, res, next){
-    const {projectId} = req.params
+async function getProjectGroups(projectId, userEmail){
     let result = []
-    if(projectModel.isUsersProject(req.session.user, projectId)){
+    if(projectModel.isUsersProject(userEmail, projectId)){
         const client = await mongo.getConnection();
         const db = client.db(dbName);
         const col = db.collection("groups");
         result = await col.find({
             projectId: projectId,
             groupId: "root"
-        }).toArray();
+        }).toArray()
         client.close()
     }
-    res.send(result)
+    result = result.sort((a, b) => {
+        return a.orderIdx - b.orderIdx
+    });
+    return result
 }
 
-async function getSubGroups(req, res, next){
-    const {projectId, groupId} = req.params
+async function getSubGroups(projectId, groupId, userEmail){
     let result = []
-    if(projectModel.isUsersProject(req.session.user, projectId)){
+    if(projectModel.isUsersProject(userEmail, projectId)){
         const client = await mongo.getConnection();
         const db = client.db(dbName);
         const col = db.collection("groups");
@@ -33,12 +34,13 @@ async function getSubGroups(req, res, next){
         }).toArray();
         client.close()
     }
-    res.send(result)
+    result = result.sort((a, b) => {
+        return a.orderIdx - b.orderIdx
+    });
+    return result
 }
 
-async function saveAllGroups(req, res, next){
-    const {projectId, groupId} = req.params
-
+async function saveAllGroups(projectId, groupId, items){
     console.log("saveGroups", projectId, groupId);
 
     const client = await mongo.getConnection();
@@ -72,26 +74,22 @@ async function saveAllGroups(req, res, next){
         }
     }
 
-
-    const items = req.body
     // console.log("items", items);
-
-
     let serverItems = await col.find({
         projectId: projectId,
         groupId: groupId
     }).toArray()
     // console.log("serverItems", serverItems);
 
-
     let newItems = items.filter((p) => {
         return p._id == null
     }).map((p) => {
         return {
-            name: p.name,
-            description: p.description,
             projectId: p.projectId,
             groupId: p.groupId,
+            name: p.name,
+            description: p.description,
+            orderIdx: p.orderIdx
         }
     })
 
@@ -108,11 +106,11 @@ async function saveAllGroups(req, res, next){
     });
     // console.log("toUpdate", toUpdate);
 
-
     toUpdate.forEach(p => {
         col.updateOne({"_id": ObjectId(p._id)}, {$set: {
             name: p.name,
-            description: p.description
+            description: p.description,
+            orderIdx: p.orderIdx
         }})
     });
 
@@ -126,22 +124,15 @@ async function saveAllGroups(req, res, next){
     toDelete.forEach(p => {
         deleteGroup(p.projectId, p._id)
     });
-    // client.close()
-    // res.status(200)
-    next()
+    return 
 }
 
-async function getGroupBreadcrumb(req, res, next){
-    console.log("GROUP BREAD");
-
-    const {projectId, groupId} = req.params
-    res.send(await getBreadcrumb(projectId, groupId))
+async function getGroupBreadcrumb(projectId, groupId){
+    return (await getBreadcrumb(projectId, groupId))
 }
 
-async function getTestBreadcrumb(req, res, next){
-    console.log("TEST BREAD");
-    const {projectId, groupId, testId} = req.params
-    res.send(await getBreadcrumb(projectId, groupId, testId))
+async function getTestBreadcrumb(projectId, groupId, testId){
+    return (await getBreadcrumb(projectId, groupId, testId))
 }
 
 async function getBreadcrumb(projectId, groupId, testId){

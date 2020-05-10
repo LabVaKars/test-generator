@@ -18,10 +18,43 @@ const testCollection = "tests";
 //     res.send(result)
 // }
 
-async function getSubTests(req, res, next){
+
+
+async function getSteps(projectId, groupId){
     const {projectId, groupId} = req.params
+    const client = await mongo.getConnection();
+    const db = client.db(dbName);
+    const col = db.collection("tests");
+    let result = await col.find({
+        "projectId": projectId,
+        "groupId": groupId,
+    }).toArray();
+    client.close()
+    return result[0].steps
+}
+
+async function saveSteps(projectId, groupId, items){
+    const {projectId, groupId} = req.params
+
+    console.log("items",items);
+
+    const client = await mongo.getConnection();
+    const db = client.db(dbName);
+    const col = db.collection("tests");
+
+    // console.log(projectId, groupId, );
+
+    await col.updateOne({
+        "projectId": projectId,
+        "groupId": groupId,
+    },{$set: {steps: items}})
+    client.close()
+    return
+}
+
+async function getSubTests(projectId, groupId, userEmail){
     let result = []
-    if(projectModel.isUsersProject(req.session.user, projectId)){
+    if(projectModel.isUsersProject(userEmail, projectId)){
         const client = await mongo.getConnection();
         const db = client.db(dbName);
         const col = db.collection("tests");
@@ -31,46 +64,13 @@ async function getSubTests(req, res, next){
         }).toArray();
         client.close()
     }
-    res.send(result)
+    result = result.sort((a, b) => {
+        return a.orderIdx - b.orderIdx
+    });
+    return result
 }
 
-async function getSteps(req, res, next){
-    const {projectId, groupId, testId} = req.params
-    const client = await mongo.getConnection();
-    const db = client.db(dbName);
-    const col = db.collection("tests");
-    let result = await col.find({
-        "projectId": projectId,
-        "groupId": groupId,
-    }).toArray();
-    client.close()
-    res.send(result[0].steps)
-}
-
-async function saveSteps(req, res, next){
-    const {projectId, groupId, testId} = req.params
-
-    const items = req.body
-    console.log("items",items);
-
-    const client = await mongo.getConnection();
-    const db = client.db(dbName);
-    const col = db.collection("tests");
-
-    console.log(projectId, groupId, testId);
-
-    await col.updateOne({
-        "projectId": projectId,
-        "groupId": groupId,
-    },{$set: {steps: items}})
-    client.close()
-    next()
-}
-
-async function saveAllTests(req, res, next){
-    const {projectId, groupId} = req.params
-
-    const items = req.body
+async function saveAllTests(projectId, groupId, items){
     console.log("items",items);
 
     const client = await mongo.getConnection();
@@ -90,6 +90,7 @@ async function saveAllTests(req, res, next){
             description: p.description,
             projectId: p.projectId,
             groupId: p.groupId,
+            orderIdx: p.orderIdx,
             steps: []
         }
     })
@@ -111,7 +112,8 @@ async function saveAllTests(req, res, next){
     toUpdate.forEach(p => {
         col.updateOne({"_id": ObjectId(p._id)}, {$set: {
             name: p.name,
-            description: p.description
+            description: p.description,
+            orderIdx: p.orderIdx
         }})
     });
 
@@ -126,7 +128,7 @@ async function saveAllTests(req, res, next){
         col.deleteOne({_id: p._id})
     });
     // client.close()
-    next()
+    return
 }
 
 module.exports = {

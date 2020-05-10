@@ -24,7 +24,6 @@ function useTestTableForm(projectId, groupId, isRoot){
 				serverId: p._id,
 				projectId: p.projectId,
 				groupId: p.groupId,
-				order: index + 1,
 				name: p.name,
 				description: p.description,
 				isSelected: false
@@ -34,11 +33,12 @@ function useTestTableForm(projectId, groupId, isRoot){
 	}
 
 	function localToServerState(tests){
-		let result = tests.map((p) => {
+		let result = tests.map((p, i) => {
 			return {
 				_id: p.serverId,
 				projectId: projectId,
 				groupId: (isRoot ? 'root' : groupId),
+				orderIdx: i,
 				name: p.name,
 				description: p.description
 			}

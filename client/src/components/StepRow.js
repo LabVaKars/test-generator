@@ -8,7 +8,7 @@ import BrowserActionRow from 'components/StepForms/BrowserAction.row'
 import {useDrag, useDrop} from 'react-dnd'
 import {ItemTypes} from 'constants/ItemTypes'
 import { EMPTY_STEP, BROWSER_URL, BROWSER_ACTION } from 'constants/Step.types'
-import { SELECT_ELEM, EMPTY_ELEM_STEP, ELEM_CLICK, ELEM_SET_VALUE, ELEM_ASSERT_STATE, ELEM_ASSERT_HTML_ATTR, ELEM_ASSERT_CSS_PROP, ELEM_ASSERT_VALUE, ELEM_ASSERT_TEXT, ELEM_ASSERT_TAG_NAME, ELEM_ASSERT_COOR, ELEM_ASSERT_SIZE, COOKIE_ASSERT, COOKIE_DELETE, COOKIE_UPDATE, BROWSER_ASSERT_TITLE, BROWSER_ASSERT_URL, PROMPT_ASSERT, PROMPT_ACTION, PROMPT_SET_VALUE } from '../constants/Step.types'
+import { SELECT_ELEM, EMPTY_ELEM_STEP, ELEM_CLICK, ELEM_SET_VALUE, ELEM_ASSERT_STATE, ELEM_ASSERT_HTML_ATTR, ELEM_ASSERT_CSS_PROP, ELEM_ASSERT_VALUE, ELEM_ASSERT_TEXT, ELEM_ASSERT_TAG_NAME, ELEM_ASSERT_COOR, ELEM_ASSERT_SIZE, COOKIE_ASSERT, COOKIE_DELETE, COOKIE_UPDATE, BROWSER_ASSERT_TITLE, BROWSER_ASSERT_URL, PROMPT_ASSERT, PROMPT_ACTION, PROMPT_SET_VALUE, WINDOW_ASSERT_COOR, WINDOW_ASSERT_SIZE, WINDOW_SET_COOR, WINDOW_SET_SIZE } from '../constants/Step.types'
 import SelectElementRow from './StepForms/SelectElement.row'
 import EmptyElemStepRow from './StepForms/EmptyElemStep.row'
 import ElementClickRow from './StepForms/ElementClick.row'
@@ -29,6 +29,10 @@ import AssertBrowserUrlRow from './StepForms/AssertBrowserUrl.row'
 import AssertPromptRow from './StepForms/AssertPrompt.row'
 import PromptActionRow from './StepForms/PromptAction.row'
 import PromptSetValueRow from './StepForms/PromptSetValue.row'
+import AssertWindowCoorRow from './StepForms/AssertWindowCoor.row'
+import AssertWindowSizeRow from './StepForms/AssertWindowSize.row'
+import WindowSetCoorRow from './StepForms/WindowSetCoor.row'
+import WindowSetSizeRow from './StepForms/WindowSetSize.row'
 
 export default function StepRow(props) {
 	const {
@@ -147,6 +151,18 @@ export default function StepRow(props) {
 		break
 		case PROMPT_SET_VALUE: 
 			blockContent = <PromptSetValueRow form={form}/>
+		break
+		case WINDOW_ASSERT_COOR: 
+			blockContent = <AssertWindowCoorRow form={form}/>
+		break
+		case WINDOW_ASSERT_SIZE: 
+			blockContent = <AssertWindowSizeRow form={form}/>
+		break
+		case WINDOW_SET_COOR: 
+			blockContent = <WindowSetCoorRow form={form}/>
+		break
+		case WINDOW_SET_SIZE: 
+			blockContent = <WindowSetSizeRow form={form}/>
 		break
 		case BROWSER_ASSERT_TITLE:
 			blockContent = <AssertBrowserTitleRow form={form}/>

@@ -6,7 +6,7 @@ import { EMPTY_STEP, BROWSER_URL, BROWSER_ACTION } from 'constants/Step.types'
 import browserUrlFormReducer from 'reducers/StepReducers/BrowserUrlForm.reducer'
 import { CLEAN_FORM } from 'constants/StepTypes/StepFormCommon.types'
 import browserActionFormReducer from 'reducers/StepReducers/BrowserActionForm.reducer'
-import { SELECT_ELEM, ELEM_SET_VALUE, ELEM_ASSERT_STATE, ELEM_ASSERT_HTML_ATTR, ELEM_ASSERT_CSS_PROP, ELEM_ASSERT_VALUE, ELEM_ASSERT_TEXT, ELEM_ASSERT_TAG_NAME, ELEM_ASSERT_COOR, ELEM_ASSERT_SIZE, COOKIE_ASSERT, COOKIE_DELETE, COOKIE_UPDATE, BROWSER_ASSERT_TITLE, BROWSER_ASSERT_URL, PROMPT_ACTION, PROMPT_ASSERT, PROMPT_SET_VALUE } from '../../constants/Step.types'
+import { SELECT_ELEM, ELEM_SET_VALUE, ELEM_ASSERT_STATE, ELEM_ASSERT_HTML_ATTR, ELEM_ASSERT_CSS_PROP, ELEM_ASSERT_VALUE, ELEM_ASSERT_TEXT, ELEM_ASSERT_TAG_NAME, ELEM_ASSERT_COOR, ELEM_ASSERT_SIZE, COOKIE_ASSERT, COOKIE_DELETE, COOKIE_UPDATE, BROWSER_ASSERT_TITLE, BROWSER_ASSERT_URL, PROMPT_ACTION, PROMPT_ASSERT, PROMPT_SET_VALUE, WINDOW_ASSERT_COOR, WINDOW_ASSERT_SIZE, WINDOW_SET_COOR, WINDOW_SET_SIZE } from '../../constants/Step.types'
 import { ADD_ELEM_STEP } from '../../constants/TestTypes/StepForm.types'
 import selectElemReducer from '../StepReducers/SelectElem.reducer'
 import ElementSetValueReducer from '../StepReducers/ElemSetValue.reducer'
@@ -26,6 +26,10 @@ import AssertBrowserUrlReducer from '../StepReducers/AssertBrowserUrl.reducer'
 import PromptActionReducer from '../StepReducers/PromptAction.reducer'
 import AssertPromptReducer from '../StepReducers/AssertPrompt.reducer'
 import PromptSetValueReducer from '../StepReducers/PromptSetValue.reducer'
+import AssertWindowCoorReducer from '../StepReducers/AssertWindowCoor.reducer'
+import AssertWindowSizeReducer from '../StepReducers/AssertWindowSize.reducer'
+import WindowSetCoorReducer from '../StepReducers/WindowSetCoor.reducer'
+import WindowSetSizeReducer from '../StepReducers/WindowSetSize.reducer'
 
 // Все редьюсеры реализуют метод CLEAN_FORM
 const reducers = {
@@ -46,6 +50,10 @@ const reducers = {
 	[PROMPT_ASSERT]: AssertPromptReducer,
 	[PROMPT_ACTION]: PromptActionReducer,
 	[PROMPT_SET_VALUE]: PromptSetValueReducer,
+	[WINDOW_ASSERT_COOR]: AssertWindowCoorReducer,
+	[WINDOW_ASSERT_SIZE]: AssertWindowSizeReducer,
+	[WINDOW_SET_COOR]: WindowSetCoorReducer,
+	[WINDOW_SET_SIZE]: WindowSetSizeReducer,
 	[BROWSER_ASSERT_TITLE]: AssertBrowserTitleReducer,
 	[BROWSER_ASSERT_URL]: AssertBrowserUrlReducer,
 	[BROWSER_URL]: browserUrlFormReducer,

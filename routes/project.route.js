@@ -14,31 +14,24 @@ router.use(authModel.validateSession)
 router.get("/projects", (req, res, next) => {
     // res.set("Content-Type", "application/json");
     next();
-}, model.getAllProjects)
+}, async (req, res, next) => {
+    let {user} = req.session
+    let result = await model.getAllProjects(user)
+    res.send(result)
+})
 
 router.post("/projects", (req, res, next) => {
     // res.set("Content-Type", "application/json");
     next();
-}, model.saveAllProjects, model.getAllProjects)
-
-// router.get("/get/:id", (req, res, next) => {
-//     res.set("Content-Type", "application/json");
-//     next();
-// }, model.getTest)
-
-// router.get("/all/:id?", (req, res, next) => {
-//     res.set("Content-Type", "application/json");
-//     next();
-// }, model.getTests)
-
-// router.post("/update/:id", (req, res, next) => {
-//     res.set("Content-Type", "application/json");
-//     next();
-// }, model.updateTest)
-
-// router.delete("/remove/:id", (req, res, next) => {
-//     res.set("Content-Type", "application/json");
-//     next();
-// }, model.removeTest)
+}, async (req, res, next) => {
+    let {user} = req.session
+    let items = req.body
+    await model.saveAllProjects(user, items)
+    next()
+}, async (req, res, next) => {
+    let {user} = req.session
+    let result = await model.getAllProjects(user)
+    res.send(result)
+})
     
 module.exports = router;

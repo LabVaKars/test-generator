@@ -10,7 +10,7 @@ import NotSelectedForm from './StepForms/NotSelected.form'
 import ElementClickForm from './StepForms/ElementClick.form'
 import EmptyElemStepForm from './StepForms/EmptyElemStep.form'
 import ElementSetValueForm from './StepForms/ElementSetValue.form'
-import { ELEM_ASSERT_STATE, ELEM_ASSERT_HTML_ATTR, ELEM_ASSERT_CSS_PROP, ELEM_ASSERT_VALUE, ELEM_ASSERT_TEXT, ELEM_ASSERT_TAG_NAME, ELEM_ASSERT_COOR, ELEM_ASSERT_SIZE, COOKIE_ASSERT, COOKIE_DELETE, COOKIE_UPDATE, BROWSER_ASSERT_TITLE, BROWSER_ASSERT_URL, PROMPT_SET_VALUE, PROMPT_ACTION, PROMPT_ASSERT } from '../constants/Step.types'
+import { ELEM_ASSERT_STATE, ELEM_ASSERT_HTML_ATTR, ELEM_ASSERT_CSS_PROP, ELEM_ASSERT_VALUE, ELEM_ASSERT_TEXT, ELEM_ASSERT_TAG_NAME, ELEM_ASSERT_COOR, ELEM_ASSERT_SIZE, COOKIE_ASSERT, COOKIE_DELETE, COOKIE_UPDATE, BROWSER_ASSERT_TITLE, BROWSER_ASSERT_URL, PROMPT_SET_VALUE, PROMPT_ACTION, PROMPT_ASSERT, WINDOW_SET_COOR, WINDOW_SET_SIZE, WINDOW_ASSERT_COOR, WINDOW_ASSERT_SIZE } from '../constants/Step.types'
 import AssertElemStateForm from './StepForms/AssertElemState.form'
 import AssertHTMLPropForm from './StepForms/AssertHTMLProp.form'
 import AssertCSSPropForm from './StepForms/AssertCSSProp.form'
@@ -27,6 +27,10 @@ import AssertBrowserUrlForm from './StepForms/AssertBrowserUrl.form'
 import AssertPromptForm from './StepForms/AssertPrompt.form'
 import PromptActionForm from './StepForms/PromptAction.form'
 import PromptSetValueForm from './StepForms/PromptSetValue.form'
+import AssertWindowCoorForm from './StepForms/AssertWindowCoor.form'
+import AssertWindowSizeForm from './StepForms/AssertWindowSize.form'
+import WindowSetCoorForm from './StepForms/WindowSetCoor.form'
+import WindowSetSizeForm from './StepForms/WindowSetSize.form'
 
 let documentOptions = [
 	{name: "Actions | Browser | Navigate to Url", value: BROWSER_URL},
@@ -35,11 +39,14 @@ let documentOptions = [
 	{name: "Actions | Cookie | Update", value: COOKIE_UPDATE},
 	{name: "Actions | Prompt | Value", value: PROMPT_SET_VALUE},
 	{name: "Actions | Prompt | Action", value: PROMPT_ACTION},
+	{name: "Actions | Window | Coordinates", value: WINDOW_SET_COOR},
+	{name: "Actions | Window | Size", value: WINDOW_SET_SIZE},
 	{name: "Assertions | Browser | Title", value: BROWSER_ASSERT_TITLE},
 	{name: "Assertions | Browser | Url", value: BROWSER_ASSERT_URL},
 	{name: "Assertions | Cookie | Value", value: COOKIE_ASSERT},
 	{name: "Assertions | Prompt | Value", value: PROMPT_ASSERT},
-	// {name: "Assertions | Browser | Navbar Action", value: BROWSER_ACTION},
+	{name: "Assertions | Window | Coordinates", value: WINDOW_ASSERT_COOR},
+	{name: "Assertions | Window | Size", value: WINDOW_ASSERT_SIZE},
 ]
 
 let elementOptions = [
@@ -132,6 +139,18 @@ export default function StepRowForm(props) {
 			break
 			case PROMPT_SET_VALUE:
 				currentFormTemplate = (<PromptSetValueForm reducer={reducer} selectedStep={selectedStep}/>)
+			break
+			case WINDOW_ASSERT_COOR:
+				currentFormTemplate = (<AssertWindowCoorForm reducer={reducer} selectedStep={selectedStep}/>)
+			break
+			case WINDOW_ASSERT_SIZE:
+				currentFormTemplate = (<AssertWindowSizeForm reducer={reducer} selectedStep={selectedStep}/>)
+			break
+			case WINDOW_SET_COOR:
+				currentFormTemplate = (<WindowSetCoorForm reducer={reducer} selectedStep={selectedStep}/>)
+			break
+			case WINDOW_SET_SIZE:
+				currentFormTemplate = (<WindowSetSizeForm reducer={reducer} selectedStep={selectedStep}/>)
 			break
 			case BROWSER_ASSERT_TITLE:
 				currentFormTemplate = (<AssertBrowserTitleForm reducer={reducer} selectedStep={selectedStep}/>)

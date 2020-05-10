@@ -23,3 +23,7 @@ export const BROWSER_ACTION =           `${PREFIX}:BROWSER_ACTION`
 export const PROMPT_ACTION =            `${PREFIX}:PROMPT_ACTION`
 export const PROMPT_SET_VALUE =         `${PREFIX}:PROMPT_SET_VALUE`
 export const PROMPT_ASSERT =            `${PREFIX}:PROMPT_ASSERT`
+export const WINDOW_ASSERT_COOR =       `${PREFIX}:WINDOW_ASSERT_COOR`
+export const WINDOW_ASSERT_SIZE =       `${PREFIX}:WINDOW_ASSERT_SIZE`
+export const WINDOW_SET_COOR =          `${PREFIX}:WINDOW_SET_COOR`
+export const WINDOW_SET_SIZE =          `${PREFIX}:WINDOW_SET_SIZE`

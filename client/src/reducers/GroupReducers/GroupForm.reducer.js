@@ -1,6 +1,9 @@
 import update from 'immutability-helper'
 import { INIT_GROUPS, ADD_GROUP, DELETE_GROUP, TOGGLE_SELECT_GROUP, CHANGE_NAME, CHANGE_DESCRIPTION, SAVE_CHANGES, MOVE_GROUP } from '../../constants/GroupTypes/Group.types'
 
+function selectedGroup(){
+
+}
 
 const handlers = {
 	[INIT_GROUPS]: (state, {groups}) => {

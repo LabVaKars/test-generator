@@ -4,23 +4,23 @@ const mongo = require("../db");
 
 const dbName = "app";
 
-async function getAllProjects(req, res, next){
+
+async function getAllProjects(userEmail){
     const client = await mongo.getConnection();
     const db = client.db(dbName);
     const col = db.collection("projects");
 
-    let userId = await usersModel.getUserIdByEmail(req.session.user)
+    let userId = await usersModel.getUserIdByEmail(userEmail)
     console.log(userId);
     
     let result = await col.find({userId: String(userId)}).toArray();
     client.close()
-    res.send(result)
+    return result
 }
 
-async function saveAllProjects(req, res, next){
-    const items = req.body
+async function saveAllProjects(userEmail, items){
 
-    let userId = await usersModel.getUserIdByEmail(req.session.user)
+    let userId = await usersModel.getUserIdByEmail(userEmail)
 console.log(userId);
 
     const client = await mongo.getConnection();
@@ -74,7 +74,7 @@ console.log(userId);
         })
     });
     // client.close()
-    next()
+    return 
 }
 
 async function isUsersProject(email, projectId){

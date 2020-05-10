@@ -13,17 +13,34 @@ router.use(authModel.validateSession)
 router.get("/:projectId/:groupId/:testId", (req, res, next) => {
     res.set("Content-Type", "application/json")
     next();
-}, model.getSteps)
+}, async (req, res, next) => {
+    const {projectId, groupId} = req.params
+    let result = await model.getSteps(projectId, groupId)
+    res.send(result)
+})
 
 router.post("/:projectId/:groupId/:testId", (req, res, next) => {
     res.set("Content-Type", "application/json")
     next();
-}, model.saveSteps, model.getSteps)
+}, async (req, res, next) => {
+    const {projectId, groupId} = req.params
+    const items = req.body
+    await model.saveSteps(projectId, groupId, items)
+}, async (req, res, next) => {
+    const {projectId, groupId} = req.params
+    let result = await model.getSteps(projectId, groupId)
+    res.send(result)
+})
 
 router.get("/:projectId/:groupId", (req, res, next) => {
     res.set("Content-Type", "application/json");
     next();
-}, model.getSubTests)
+}, async (req, res, next) => {
+    const {projectId, groupId} = req.params
+    const {user} = req.session
+    let result = await model.getSubTests(projectId, groupId, user)
+    res.send(result)
+})
 
 // Deprecated
 // router.get("/:projectId", (req, res, next) => {
@@ -34,7 +51,17 @@ router.get("/:projectId/:groupId", (req, res, next) => {
 router.post("/:projectId/:groupId", (req, res, next) => {
     res.set("Content-Type", "application/json");
     next();
-}, model.saveAllTests, model.getSubTests)
+}, async (req, res, next) => {
+    const {projectId, groupId} = req.params
+    const items = req.body 
+    await model.saveAllTests(projectId, groupId, items)
+    next()
+}, async (req, res, next) => {
+    const {projectId, groupId} = req.params
+    const {user} = req.session
+    let result = await model.getSubTests(projectId, groupId, user)
+    res.send(result)
+})
 
 // Deprecated
 // router.post("/:projectId", (req, res, next) => {

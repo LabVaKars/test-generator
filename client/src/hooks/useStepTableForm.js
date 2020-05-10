@@ -26,6 +26,7 @@ function useStepTableForm(projectId, groupId, testId){
                 id: localId,
                 projectId: p.projectId,
                 stype: p.stype,
+                scope: p.scope,
                 form: p.form,
                 groupId: p.groupId,
                 testId: p.testId,
@@ -36,13 +37,14 @@ function useStepTableForm(projectId, groupId, testId){
     }
 
     function localToServerState(steps){
-        let result = steps.map((p, index) => {
+        let result = steps.map((p, i) => {
             return {
                 projectId: p.projectId,
                 groupId: p.groupId,
                 testId: p.testId,
                 stype: p.stype,
-                order: index + 1,
+                scope: p.scope,
+                orderIdx: i,
                 form: p.form,
             }
         })

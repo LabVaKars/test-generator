@@ -17,14 +17,15 @@ function useGroupTableForm(projectId, groupId, isRoot){
 	const [groupForm, groupFormR] = useReducer(GroupFormReducer, initialState)
 
 	function serverToLocalState(groups){
-		let result = groups.map((p, index) => {
+		console.log(groups);
+		
+		let result = groups.map((p) => {
 			let localId = shortid.generate()
 			return {
 				id: localId,
 				serverId: p._id,
 				projectId: p.projectId,
 				groupId: p.groupId,
-				order: index + 1,
 				name: p.name,
 				description: p.description,
 				isSelected: false
@@ -34,11 +35,12 @@ function useGroupTableForm(projectId, groupId, isRoot){
 	}
 
 	function localToServerState(groups){
-		let result = groups.map((p) => {
+		let result = groups.map((p,i) => {
 			return {
 				_id: p.serverId,
 				projectId: projectId,
 				groupId: (isRoot ? 'root' : groupId),
+				orderIdx: i,
 				name: p.name,
 				description: p.description
 			}

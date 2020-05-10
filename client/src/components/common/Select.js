@@ -5,9 +5,6 @@ export default function Select(props) {
 		options, handleChange, selectedIdx, disabled
     } = props
 
-    console.warn(selectedIdx);
-    
-
     let defaultValue = (selectedIdx != null && selectedIdx > -1 && selectedIdx < options.length) 
         ? options[selectedIdx].value
         : "empty"
