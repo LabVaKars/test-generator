@@ -12,20 +12,25 @@ export default function TestRowForm(props) {
 
 	const {selectedTest, reducer} = props
 
-	let name, description
-
 	if(selectedTest && selectedTest.length == 1){
 
 		let st = selectedTest[0]
-
-		console.log(st)
         
 		return (
 			<>
-				<TextInput 
-					label="Test name" placeholder="Enter name for your group..."
-					handleChange={(e) => reducer({type: CHANGE_NAME, value: e.target.value, id: st.id})} 
-					value={st.name}/>
+				<div className="row">
+					<div className="col-6">
+						<TextInput 
+							label="Test name" placeholder="Enter name for your group..."
+							handleChange={(e) => reducer({type: CHANGE_NAME, value: e.target.value, id: st.id})} 
+							value={st.name}/>
+					</div>
+					{ st.errors.name &&
+						<div className="col-6">
+							<div className="alert alert-danger small p-1">{st.errors.name}</div>
+						</div>
+					}
+				</div>
 				<TextInput 
 					label="Test description" placeholder="Enter description for your group..."
 					handleChange={(e) => reducer({type: CHANGE_DESCRIPTION, value: e.target.value, id: st.id})} 

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "build": "webpack --mode production",
-    "start": "webpack --mode development",
+    "devbuild": "webpack --mode development",
     "watch": "webpack --mode development --watch",
     "push": "git add . && git commit -m \"Automatic commit\" && git push",
     "lint": "./node_modules/.bin/eslint .",
@@ -49,6 +49,7 @@
     "bootstrap": "^4.4.1",
     "bootstrap-icons": "^1.0.0-alpha3",
     "immutability-helper": "^3.0.1",
+    "jest": "^26.0.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.1",
     "react": "^16.12.0",

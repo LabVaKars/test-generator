@@ -17,6 +17,7 @@ export default function TestRow(props) {
 		name,
 		description,
 		isSelected,
+		errors,
 		index,
 		projectId,
 		groupId,
@@ -64,8 +65,12 @@ export default function TestRow(props) {
 
 	drag(drop(ref))
 
+	let bgColor = '#ffffff'
+	if(Object.keys(errors).length > 0) bgColor = '#f8d7da'
+	if(isSelected) bgColor = '#d4edda'
+
 	let trStyle = {
-		backgroundColor: (isSelected) ? 'green' : 'white',
+		backgroundColor: bgColor,
 		opacity: isDragging ? 0 : 1,
 	}
 
@@ -77,7 +82,7 @@ export default function TestRow(props) {
 						{index + 1}
 					</div>
 				</td>
-				<td>{id}</td>
+				{/* <td>{id}</td> */}
 				<td>{name}</td>
 				<td>{description}</td>
 				<td>

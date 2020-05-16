@@ -3,7 +3,7 @@ import shortid from 'shortid'
 
 import TestFormReducer from 'reducers/TestForm.reducer'
 import testService from 'services/test.service'
-import { INIT_TESTS, ADD_TEST, DELETE_TEST, TOGGLE_SELECT_TEST, MOVE_TEST, SAVE_CHANGES } from 'constants/Test.types'
+import { INIT_TESTS, ADD_TEST, DELETE_TEST, TOGGLE_SELECT_TEST, MOVE_TEST, SAVE_CHANGES, SET_ERRORS } from 'constants/Test.types'
 
 function useTestTableForm(projectId, groupId, isRoot){
 
@@ -16,6 +16,19 @@ function useTestTableForm(projectId, groupId, isRoot){
 
 	const [testForm, testFormR] = useReducer(TestFormReducer, initialState)
 
+	function validateForm(tests){
+		let noErrors = true
+		for(let test of tests){
+			let errors = {};
+			if(test.name.length == 0) {
+				noErrors = false
+				errors.name = 'This field is required'
+			}
+			testFormR({type:SET_ERRORS, id: test.id, errors: errors})
+		}
+		return noErrors
+	}
+
 	function serverToLocalState(tests){
 		let result = tests.map((p, index) => {
 			let localId = shortid.generate()
@@ -24,6 +37,7 @@ function useTestTableForm(projectId, groupId, isRoot){
 				serverId: p._id,
 				projectId: p.projectId,
 				groupId: p.groupId,
+				errors: {},
 				name: p.name,
 				description: p.description,
 				isSelected: false
@@ -95,8 +109,10 @@ function useTestTableForm(projectId, groupId, isRoot){
 	}
 
 	function saveTestChanges(){
-		updateTestData()
-		console.log('Changes saved')
+		if(validateForm(testForm.tests)){
+			updateTestData()
+			console.log('Changes saved')
+		}
         
 	}
 

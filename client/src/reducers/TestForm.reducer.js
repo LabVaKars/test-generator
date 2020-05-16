@@ -1,5 +1,5 @@
 import update from 'immutability-helper'
-import { INIT_TESTS, ADD_TEST, DELETE_TEST, TOGGLE_SELECT_TEST, CHANGE_NAME, CHANGE_DESCRIPTION, SAVE_CHANGES, MOVE_TEST } from 'constants/Test.types'
+import { INIT_TESTS, ADD_TEST, DELETE_TEST, TOGGLE_SELECT_TEST, CHANGE_NAME, CHANGE_DESCRIPTION, SAVE_CHANGES, MOVE_TEST, SET_ERRORS } from 'constants/Test.types'
 
 
 const handlers = {
@@ -13,6 +13,7 @@ const handlers = {
 			serverId: null,
 			projectId: null,
 			groupId: null,
+			errors: {},
 			name: '',
 			description: '',
 			isSelected: false
@@ -64,6 +65,12 @@ const handlers = {
 		})
 		let newValue = {description: value}
 		return update(state, {tests: {[index]: {$merge: newValue}}})
+	},
+	[SET_ERRORS]: (state, {id, errors}) => {
+		let index = state.tests.findIndex((test) => {
+			return test.id == id
+		})
+		return update(state, {tests: {[index]: {$merge: {errors: errors}}}})
 	},
 	[SAVE_CHANGES]: (state) => {
 		return update(state, {$merge: {hasChanges: false}})

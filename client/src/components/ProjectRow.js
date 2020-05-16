@@ -18,13 +18,18 @@ export default function ProjectRow(props) {
 		name,
 		baseUrl,
 		isSelected,
+		errors,
 		index,
 		deleteProject,
 		selectProject,
 	} = props	
 
+	let bgColor = '#ffffff'
+	if(Object.keys(errors).length > 0) bgColor = '#f8d7da'
+	if(isSelected) bgColor = '#d4edda'
+
 	let trStyle = {
-		backgroundColor: (isSelected) ? 'green' : 'white'
+		backgroundColor: bgColor
 	}
 
 	return (
@@ -35,9 +40,9 @@ export default function ProjectRow(props) {
 						{index + 1}
 					</div>
 				</td>
-				<td>{id}</td>
+				{/* <td>{id}</td> */}
 				<td>{name}</td>
-				<td>{baseUrl}</td>
+				{/* <td>{baseUrl}</td> */}
 				<td>
 					<div className="d-flex align-items-center justify-content-around">
 						<i className="fas fa-trash-alt text-danger" onClick={(e) => {

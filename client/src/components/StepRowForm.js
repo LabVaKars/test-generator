@@ -81,10 +81,10 @@ export default function StepRowForm(props) {
 	if(isSelected){
 		switch(ss.stype){
 			case EMPTY_STEP:
-				currentFormTemplate = (<EmptyStepForm />)
+				currentFormTemplate = (<EmptyStepForm selectedStep={selectedStep}/>)
 			break
 			case EMPTY_ELEM_STEP:
-				currentFormTemplate = (<EmptyElemStepForm />)
+				currentFormTemplate = (<EmptyElemStepForm selectedStep={selectedStep}/>)
 			break
 			case SELECT_ELEM:
 				currentFormTemplate = (<SelectElementForm reducer={reducer} selectedStep={selectedStep} />)

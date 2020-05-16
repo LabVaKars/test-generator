@@ -41,7 +41,8 @@ export function App(props){
 						)}/>
 					</>
 				)} />
-				<Route exact path="/" component={WelcomePage} />
+				{/* <Route exact path="/" component={WelcomePage} /> */}
+				<Route exact path="/" component={AboutPage} />
 				<Route component={NotFoundPage} />
 			</Switch>
 		</>

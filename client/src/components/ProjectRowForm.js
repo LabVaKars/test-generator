@@ -16,16 +16,28 @@ export default function ProjectRowForm(props) {
 
 		let sp = selectedProject[0]
 
+		console.log(sp);
+		
+
 		return (
 			<>
-				<TextInput 
-					label="Project name" placeholder="Enter name for your project..."
-					handleChange={(e) => reducer({type: CHANGE_NAME, value: e.target.value, id: sp.id})} 
-					value={sp.name}/>
-				<TextInput 
+				<div className="row">
+					<div className="col-6">
+						<TextInput 
+							label="Project name" placeholder="Enter name for your project..."
+							handleChange={(e) => reducer({type: CHANGE_NAME, value: e.target.value, id: sp.id})} 
+							value={sp.name}/>
+					</div>
+					{ sp.errors.name &&
+						<div className="col-6">
+							<div className="alert alert-danger small p-1">{sp.errors.name}</div>
+						</div>
+					}
+				</div>
+				{/* <TextInput 
 					label="Project base URL" placeholder="Enter base URL for your project..."
 					handleChange={(e) => reducer({type: CHANGE_BASE_URL, value: e.target.value, id: sp.id})} 
-					value={sp.baseUrl}/>
+					value={sp.baseUrl}/> */}
 			</>
 		)
 	} else {

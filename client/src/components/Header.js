@@ -1,14 +1,14 @@
 import React, { useContext } from 'react'
 import axios from 'axios'
 
-import {Link} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import AuthContext from '../hooks/AuthContext'
 import authService from 'services/auth.service'
 
 const leftLinks = [
 	{path: '/', label: 'Home'},
 	{path: '/projects', label: 'My Projects'},
-	{path: '/generate', label: 'Generator'},
+	{path: '/generate', label: 'Code generator'},
 ]
 
 
@@ -17,12 +17,17 @@ export default function Header(props) {
 
 	let {auth, setAuth} = useContext(AuthContext)
 
+	let history = useHistory()
+
 	function signOut(){
 		authService.logoutUser()
 			.then(setAuth({
 				isAuthenticated: false,
 				user: null
-			}))
+			})).
+			then(() => {
+				history.push('/')
+			})
 	}
 	
 	if(auth && auth.isAuthenticated){
@@ -39,7 +44,7 @@ export default function Header(props) {
 				</ul>
 				<ul className="navbar-nav">
 					<li className="nav-item">
-						<span className="nav-link" onClick={signOut}>Sign Out</span>
+						<Link><span className="nav-link" onClick={signOut}>Sign Out</span></Link	>
 					</li>
 				</ul>
 			</nav>

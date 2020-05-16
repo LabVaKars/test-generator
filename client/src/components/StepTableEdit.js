@@ -60,19 +60,12 @@ function StepTableEdit(props) {
 		<>
 			<Breadcrumb links={breadcrumb} />
 			<div className="card-header">
-				<h2>Edit steps form</h2>
+				<h2>Edit Steps Form</h2>
 			</div>
-			<div className="card-header">
-				<div className="d-flex flex-row justify-content-between">
-					<div>
-						<Button name={'Add Step'} handleClick={addStep} />
-						<Button name={'Add Element'} handleClick={addElement} />
-					</div>
-					<div>
-						<Button name={'Save Changes'} handleClick={saveStepChanges} />
-					</div>
-				</div>
-			</div>
+			{stepForm.hasChanges
+				? <div className="alert alert-danger m-0">You have unsaved changes</div>
+				: <div className="alert alert-success m-0">All changes saved</div>
+			}
 			<div className="card-header">
 				<h2>Step edit form</h2>
 			</div>
@@ -105,6 +98,17 @@ function StepTableEdit(props) {
 							/>
 						}
 					} />  
+			</div>
+			<div className="card-footer">
+				<div className="d-flex flex-row justify-content-between">
+					<div>
+						<Button name={'Add Step'} handleClick={addStep} />
+						<Button name={'Add Element'} handleClick={addElement} />
+					</div>
+					<div>
+						<Button name={'Save Changes'} handleClick={saveStepChanges} />
+					</div>
+				</div>
 			</div>
 		</>
 	)

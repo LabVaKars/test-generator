@@ -91,7 +91,7 @@ export default function GroupTableEdit(props) {
 	const groupFormTemplate = (
 		<>
 			<div className="card-header">
-				<h3>My created groups</h3>
+				<h3>Esit Groups Form</h3>
 			</div>
 			{groupForm.hasChanges
 				? <div className="alert alert-danger m-0">You have unsaved changes</div>
@@ -123,7 +123,7 @@ export default function GroupTableEdit(props) {
 			<div className="card-footer">
 				<Button 
 					name="Add Group" 
-					icon={<i className="fas fa-plus-square"></i>} 
+					// icon={<i className="fas fa-plus-square"></i>} 
 					handleClick={addGroup} />
 				<Button 
 					name="Save Changes" 
@@ -136,7 +136,7 @@ export default function GroupTableEdit(props) {
 	const testFormTemplate = (
 		<>
 			<div className="card-header">
-				<h3>My created tests</h3>
+				<h3>Edit Tests from</h3>
 			</div>
 			{testForm.hasChanges
 				? <div className="alert alert-danger m-0">You have unsaved changes</div>
@@ -168,7 +168,7 @@ export default function GroupTableEdit(props) {
 			<div className="card-footer">
 				<Button 
 					name="Add Test" 
-					icon={<i className="fas fa-plus-square"></i>} 
+					// icon={<i className="fas fa-plus-square"></i>} 
 					handleClick={addTest} />
 				<Button 
 					name="Save Changes" 

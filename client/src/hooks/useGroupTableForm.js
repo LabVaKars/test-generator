@@ -3,7 +3,7 @@ import shortid from 'shortid'
 
 import GroupFormReducer from '../reducers/GroupReducers/GroupForm.reducer'
 import groupService from 'services/group.service'
-import { INIT_GROUPS, ADD_GROUP, DELETE_GROUP, TOGGLE_SELECT_GROUP, MOVE_GROUP, SAVE_CHANGES } from '../constants/GroupTypes/Group.types'
+import { INIT_GROUPS, ADD_GROUP, DELETE_GROUP, TOGGLE_SELECT_GROUP, MOVE_GROUP, SAVE_CHANGES, SET_ERRORS } from '../constants/GroupTypes/Group.types'
 
 function useGroupTableForm(projectId, groupId, isRoot){
 
@@ -16,6 +16,19 @@ function useGroupTableForm(projectId, groupId, isRoot){
 
 	const [groupForm, groupFormR] = useReducer(GroupFormReducer, initialState)
 
+	function validateForm(groups){
+		let noErrors = true
+		for(let group of groups){
+			let errors = {};
+			if(group.name.length == 0) {
+				noErrors = false
+				errors.name = 'This field is required'
+			}
+			groupFormR({type:SET_ERRORS, id: group.id, errors: errors})
+		}
+		return noErrors
+	}
+
 	function serverToLocalState(groups){
 		console.log(groups);
 		
@@ -26,6 +39,7 @@ function useGroupTableForm(projectId, groupId, isRoot){
 				serverId: p._id,
 				projectId: p.projectId,
 				groupId: p.groupId,
+				errors: {},
 				name: p.name,
 				description: p.description,
 				isSelected: false
@@ -97,8 +111,10 @@ function useGroupTableForm(projectId, groupId, isRoot){
 	}
 
 	function saveGroupChanges(){
-		updateGroupData()
-		console.log('Changes saved')
+		if(validateForm(groupForm.groups)){
+			updateGroupData()
+			console.log('Changes saved')
+		}
         
 	}
 

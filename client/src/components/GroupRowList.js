@@ -19,7 +19,7 @@ export default function GroupRowList(props) {
 				<thead>
 					<tr>
 						<th style={{width: '50px'}}>#</th>
-						<th style={{width: '50px'}}>ID</th>
+						{/* <th style={{width: '50px'}}>ID</th> */}
 						<th>Group name</th>
 						<th>Group description</th>
 						<th style={{width: '100px'}}>Actions</th>
