@@ -1,5 +1,5 @@
 import update from 'immutability-helper'
-import { ADD_PROJECT, DELETE_PROJECT, TOGGLE_SELECT_PROJECT, CHANGE_NAME, CHANGE_BASE_URL, SAVE_CHANGES, SET_ERRORS, INIT_PROJECTS } from 'constants/ProjectTypes/Project.types'
+import { ADD_PROJECT, DELETE_PROJECT, TOGGLE_SELECT_PROJECT, CHANGE_NAME, CHANGE_BASE_URL, SAVE_CHANGES, SET_ERRORS, INIT_PROJECTS } from '../../constants/ProjectTypes/Project.types'
 
 
 const handlers = {
@@ -12,7 +12,6 @@ const handlers = {
 			id,
 			serverId: null,
 			name: '',
-			baseUrl: '',
 			errors: {},
 			isSelected: false
 		}]}})
