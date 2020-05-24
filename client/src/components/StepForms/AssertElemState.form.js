@@ -15,7 +15,7 @@ AssertElemStateForm.propTypes = {
 export default function AssertElemStateForm(props) {
 
     const {reducer, selectedStep} = props
-    
+
 	let ss = selectedStep[0]
 
     let value = ss.form.sign
@@ -30,7 +30,7 @@ export default function AssertElemStateForm(props) {
 	}
 
     console.log(value, " ", type);
-    
+
 
     let selectedValueIdx = signOptions.findIndex((o) => {
         return o.value == value
@@ -42,7 +42,7 @@ export default function AssertElemStateForm(props) {
 
 	return (
         <>
-            <div className="input-group mb-3">
+            <div className="input-group input-group-sm mb-3">
                 <div className="input-group-prepend">
                     <span className="input-group-text">Element </span>
                 </div>

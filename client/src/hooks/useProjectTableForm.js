@@ -12,13 +12,13 @@ function useProjectTableForm(){
 		hasChanges: false
 	}
 
-	const [projectsLoading, setProjectsLoading] = useState(false)
-
 	const [projectForm, projectFormR] = useReducer(ProjectFormReducer, initialState)
+
+	const [projectsLoading, setProjectsLoading] = useState(false)
 
 	function serverToLocalState(projects){
 		console.log(projects)
-        
+
 		let result = projects.map((p) => {
 			let localId = shortid.generate()
 			return {
@@ -50,7 +50,7 @@ function useProjectTableForm(){
 		console.log(projects)
 		projects = serverToLocalState(projects)
 		projectFormR({type:INIT_PROJECTS, projects: projects})
-	} 
+	}
 
 	async function updateProjectData(){
 		console.log(projectForm)
@@ -79,7 +79,7 @@ function useProjectTableForm(){
 	function saveChanges(){
 		updateProjectData()
 		console.log('Changes saved')
-        
+
 	}
 
 	return {

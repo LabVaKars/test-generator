@@ -7,12 +7,16 @@ router.use(express.json({
     type: "application/json"
 }));
 
-router.post("/register", (req, res, next) => {
-    console.log("/register")
-    res.set("Content-Type", "application/json");
-    next();
-}, authValidator, authModel.registerUser)
-    
+router.post("/register",
+    (req, res, next) => {               // Pirmais apstradatājs (Header lauku uzstadīšana)
+        console.log("/register")
+        res.set("Content-Type", "application/json");
+        next();
+    },
+    authValidator,                      // Otrais apstradatājs (Saņemto lauku validācija)
+    authModel.registerUser              // Trešais apstradatajs ()
+)
+
 router.get("/activ/:hash", (req, res, next) => {
     console.log("/activ")
     res.set("Content-Type", "application/json")

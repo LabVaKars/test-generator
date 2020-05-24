@@ -11,7 +11,7 @@ export default function BrowserUrlRow(props) {
 
 	return (
 		<div>
-            Follow the Link: <span className="text-danger">http://{form.link}</span> 
+            Follow the Link: <span className="text-danger">{form.link}</span>
 		</div>
 	)
 }

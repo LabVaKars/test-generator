@@ -60,7 +60,7 @@ async function sendConfirmationEmail(email, hash, host){
         from: process.env.REPLY_EMAIL,
         to: email,
         subject: 'Registration confirmation',
-        text: `Please click this link ${host}/api/auth/activ/${hash}`
+        text: `Please click this link to confirm your registration ${host}/api/auth/activ/${hash}`
     };
     console.log(mailOptions)
 
@@ -109,7 +109,7 @@ async function removeConfirmation(email){
     col.deleteOne({
         "email": email
     }).then(() => client.close())
-    
+
     return
 }
 
@@ -124,7 +124,7 @@ async function confirmUser(req, res, next){
         res.status(200).send(`Account activated. Follow the link to sign in: ${host}/login`)
     } else {
         removeConfirmation(email)
-        res.status(400).send(`No accaount to acctivate or activation link is outdated. Return to register: ${host}/register`)
+        res.status(400).send(`No account to acctivate or activation link is outdated. Return to register: ${host}/register`)
     }
 }
 

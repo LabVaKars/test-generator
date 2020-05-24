@@ -75,7 +75,7 @@ async function generateTestCode(projectId, groupId, testId){
 }
 
 function generateStepCode(step){
-    let code = ``
+    let code = `browser.useCss();`
     let form = step.form
     let action
     let comparator
@@ -83,106 +83,106 @@ function generateStepCode(step){
     let answer
     let cssSelector=""
     switch(step.stype){
+        // Document context
         case stepTypes.BROWSER_URL:
-            code += `.url("${form.link}")\n`
+            code += `browser.url("${form.link}");\n`
         break
         case stepTypes.BROWSER_ACTION:
-            console.log("form", form);
-            
             if(form.action == "1") action = 'back'
             if(form.action == "2") action = 'refresh'
             if(form.action == "3") action = 'forward'
-            code += `.${action}()\n`
+            code += `browser.${action}();\n`
         break
         case stepTypes.COOKIE_DELETE:
-            code += `.deleteCookie("${form.cookie}")\n`
+            code += `browser.deleteCookie("${form.cookie}");\n`
         break
         case stepTypes.COOKIE_UPDATE:
-            code += `.setCookie({name:"${form.cookie}",value:"${form.value}"})\n`
+            code += `browser.setCookie({name:"${form.cookie}",value:"${form.value}"});\n`
         break
         case stepTypes.COOKIE_ASSERT:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code =+ `.expect.cookie("${form.cookie}")${sign}.${comparator}("${form.text}")\n`
+            code += `browser.expect.cookie("${form.cookie}")${sign}.${comparator}("${form.text}");\n`
         break
         case stepTypes.PROMPT_SET_VALUE:
-            code += `.setAlertText("${form.text}")\n`
+            code += `browser.setAlertText("${form.text}");\n`
         break
         case stepTypes.PROMPT_ACTION:
             answer = (form.answer == 0) ? 'dismissAlert' : 'acceptAlert'
-            code += `.${answer}()\n`
+            code += `browser.${answer}();\n`
         break
         case stepTypes.WINDOW_SET_COOR:
-            code += `.setWindowPosition(${form.x},${form.y})\n`
+            code += `browser.setWindowPosition(${form.x},${form.y});\n`
         break
         case stepTypes.WINDOW_SET_SIZE:
-            code += `.setWindowSize(${form.width},${form.height})\n`
+            code += `browser.setWindowSize(${form.width},${form.height});\n`
         break
         case stepTypes.BROWSER_ASSERT_TITLE:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `.title()${sign}.${comparator}("${form.text}")\n`
+            code += `browser.title()${sign}.${comparator}("${form.text}");\n`
         break
         case stepTypes.BROWSER_ASSERT_URL:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `.url()${sign}.${comparator}("${form.text}")\n`
+            code += `browser.url()${sign}.${comparator}("${form.text}");\n`
         break
         case stepTypes.PROMPT_ASSERT:
-            code += `.assert.ok(browser.getAlertText == "${form.text}")\n`
+            code += `browser.assert.ok(browser.getAlertText == "${form.text}");\n`
         break
         case stepTypes.WINDOW_ASSERT_COOR:
-            code += `.assert.ok(browser.getWindowPosition().x == "${form.x}" && browser.getWindowPosition().y == "${form.y}")\n`
+            code += `browser.assert.ok(browser.getWindowPosition().x == "${form.x}" && browser.getWindowPosition().y == "${form.y}");\n`
         break
         case stepTypes.WINDOW_ASSERT_SIZE:
-            code += `.assert.ok(browser.getWindowSize().width == "${form.width}" && browser.getWindowSize().height == "${form.height}")\n`
+            code += `browser.assert.ok(browser.getWindowSize().width == "${form.width}" && browser.getWindowSize().height == "${form.height}");\n`
         break
+        // Element context
         case stepTypes.ELEM_CLICK:
-            code += `.css(${cssSelector}).click()`
+            code += `browser.css(${cssSelector}).click();\n`
         break
         case stepTypes.ELEM_SET_VALUE:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `.css(${cssSelector}).setValue(${form.value})`
+            code += `browser.css(${cssSelector}).setValue(${form.value})'\n`
         break
         case stepTypes.ELEM_ASSERT_STATE:
             estype = getElementState(form.estype)
             sign = getSign(form.sign)
-            code += `.css(${cssSelector})${sign}${estype}`
+            code += `browser.css(${cssSelector})${sign}${estype};\n`
         break
         case stepTypes.ELEM_ASSERT_VALUE:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `.css(${cssSelector})${sign}.${comparator}(${form.text})`
+            code += `browser.css(${cssSelector})${sign}.${comparator}(${form.text});\n`
         break
         case stepTypes.ELEM_ASSERT_TEXT:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `.css(${cssSelector})${sign}.${comparator}(${form.text})`
+            code += `browser.css(${cssSelector})${sign}.${comparator}(${form.text});\n`
         break
         case stepTypes.ELEM_ASSERT_TAG_NAME:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `.css(${cssSelector})${sign}.${comparator}(${form.text})`
+            code += `browser.css(${cssSelector})${sign}.${comparator}(${form.text});\n`
         break
         case stepTypes.ELEM_ASSERT_COOR:
-            code += `.assert.ok(browser.css(${cssSelector}).getLocation().x == "${form.x}" && browser.css(${cssSelector}).getLocation().y == "${form.y}")\n`
+            code += `browser.assert.ok(browser.css(${cssSelector}).getLocation().x == "${form.x}" && browser.css(${cssSelector}).getLocation().y == "${form.y}");\n`
         break
         case stepTypes.ELEM_ASSERT_SIZE:
-            code += `.assert.ok(browser.getElementSize().width == "${form.width}" && browser.getElementSize().height == "${form.height}")\n`
+            code += `browser.assert.ok(browser.getElementSize().width == "${form.width}" && browser.getElementSize().height == "${form.height}");\n`
         break
         case stepTypes.ELEM_ASSERT_HTML_ATTR:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `.css(${cssSelector})${sign}.${comparator}(${form.text})`
+            code += `browser.css(${cssSelector})${sign}.${comparator}(${form.text});\n`
         break
         case stepTypes.ELEM_ASSERT_CSS_PROP:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `.css(${cssSelector})${sign}.${comparator}(${form.text})`
+            code += `browser.css(${cssSelector})${sign}.${comparator}(${form.text});\n`
         break
     }
-    
+
     return code
 }
 
@@ -194,7 +194,7 @@ function getComparator(comparator){
     switch(comparator){
         case EQUALS:
             return 'equals'
-        case ENDS_WITH: 
+        case ENDS_WITH:
             return 'endWith'
         case STARTS_WITH:
             return 'startWith'
@@ -216,7 +216,7 @@ function getElementState(estype){
         case IS_SELECTED:
             return ''
         case IS_VISIBLE:
-            return ''                                                    
+            return ''
     }
 }
 

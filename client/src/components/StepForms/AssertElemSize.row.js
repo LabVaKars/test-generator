@@ -12,11 +12,11 @@ export default function AssertElemSizeRow(props) {
 
 
     console.log(form);
-    
+
 
 	return (
 		<div>
-            Assert that coordinates of element with css value "<span className="text-danger">{parentForm.cssSelector}</span>" are&nbsp;  
+            Assert that size of element with css value "<span className="text-danger">{parentForm.cssSelector}</span>" are&nbsp;
             Height:<span className="text-danger"> {form.height}</span>&nbsp;
             Width:<span className="text-danger"> {form.width}</span>&nbsp;
 		</div>
