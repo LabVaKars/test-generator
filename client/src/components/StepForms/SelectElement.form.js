@@ -5,7 +5,7 @@ import { CURRENT_FORM_REDUCER, ADD_ELEM_STEP } from '../../constants/TestTypes/S
 import { CHANGE_NAME, CHANGE_CSS_SELECTOR } from '../../constants/StepTypes/SelectElem.types'
 import TextInput from 'common/TextInput'
 import Button from 'common/Button'
-import { EMPTY_STEP } from '../../constants/Step.types'
+import { EMPTY_STEP, SELECT_ELEM } from '../../constants/Step.types'
 
 SelectElementForm.propTypes = {
 	id: PropTypes.number,
@@ -35,12 +35,30 @@ export default function SelectElementForm(props) {
 
 	return (
 		<>
-			<TextInput label="Name" placeholder="Name..." name="name" 
-				handleChange={changeName} value={name}    
-			/>
-			<TextInput label="CSS selector" placeholder="CSS selector..." name="cssValue" 
-				handleChange={changeCss} value={cssSelector}    
-			/>
+			<div className="row">
+				<div className="col-6">
+					<TextInput label="Name" placeholder="Name..." name="name" 
+						handleChange={changeName} value={name}    
+					/>
+				</div>
+				{ss.errors[SELECT_ELEM] && ss.errors[SELECT_ELEM].name &&
+					<div className="col-6">
+						<div className="alert alert-danger small p-1">{ss.errors[SELECT_ELEM].name}</div>
+					</div>
+				}
+			</div>
+			<div className="row">
+				<div className="col-6">
+					<TextInput label="CSS selector" placeholder="CSS selector..." name="cssValue" 
+						handleChange={changeCss} value={cssSelector}    
+					/>
+				</div>
+				{ss.errors[SELECT_ELEM] && ss.errors[SELECT_ELEM].cssSelector &&
+					<div className="col-6">
+						<div className="alert alert-danger small p-1">{ss.errors[SELECT_ELEM].cssSelector}</div>
+					</div>
+				}
+			</div>
 			<Button name="Add Element Step" handleClick={addElementStep}/>
 		</>
 	)

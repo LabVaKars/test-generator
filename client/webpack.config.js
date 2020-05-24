@@ -8,6 +8,7 @@ module.exports = {
 		main: './src/index.js',
 	},
 	output: {
+		publicPath: '/',
 		filename: '[name].[contenthash].js',
 		path: path.resolve(__dirname, '..' ,'dist'),
 	},

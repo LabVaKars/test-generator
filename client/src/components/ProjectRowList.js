@@ -19,9 +19,7 @@ export default function ProjectList(props) {
 				<thead>
 					<tr>
 						<th style={{width: '50px'}}>#</th>
-						<th>ID</th>
-						<th>Project name</th>
-						<th>Project URL</th>
+						<th>Name</th>
 						<th style={{width: '100px'}}>Actions</th>
 					</tr>
 				</thead>

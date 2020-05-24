@@ -3,7 +3,7 @@ import shortid from 'shortid'
 
 import ProjectFormReducer from 'reducers/ProjectReducers/ProjectForm.reducer'
 import projectService from 'services/project.service'
-import { ADD_PROJECT, DELETE_PROJECT, TOGGLE_SELECT_PROJECT, SAVE_CHANGES, INIT_PROJECTS } from '../constants/ProjectTypes/Project.types'
+import { ADD_PROJECT, DELETE_PROJECT, TOGGLE_SELECT_PROJECT, SAVE_CHANGES, INIT_PROJECTS, SET_ERRORS } from '../constants/ProjectTypes/Project.types'
 
 function useProjectTableForm(){
 
@@ -14,7 +14,22 @@ function useProjectTableForm(){
 
 	const [projectForm, projectFormR] = useReducer(ProjectFormReducer, initialState)
 
+<<<<<<< HEAD
 	const [projectsLoading, setProjectsLoading] = useState(false)
+=======
+	function validateForm(projects){
+		let noErrors = true
+		for(let project of projects){
+			let errors = {};
+			if(project.name.length == 0) {
+				noErrors = false
+				errors.name = 'This field is required'
+			}
+			projectFormR({type:SET_ERRORS, id: project.id, errors: errors})
+		}
+		return noErrors
+	}
+>>>>>>> b2f8bec3d80d91ee713cb474ef70cdf4c354189a
 
 	function serverToLocalState(projects){
 		console.log(projects)
@@ -26,6 +41,7 @@ function useProjectTableForm(){
 				serverId: p._id,
 				name: p.name,
 				baseUrl: p.baseUrl,
+				errors: {},
 				isSelected: false
 			}
 		})
@@ -60,7 +76,7 @@ function useProjectTableForm(){
 		console.log(projects)
 		projects = serverToLocalState(projects)
 		projectFormR({type:INIT_PROJECTS, projects: projects})
-		projectFormR({type: SAVE_CHANGES})
+		projectFormR({type:SAVE_CHANGES})
 	}
 
 	function addProject(){
@@ -77,9 +93,16 @@ function useProjectTableForm(){
 	}
 
 	function saveChanges(){
+<<<<<<< HEAD
 		updateProjectData()
 		console.log('Changes saved')
 
+=======
+		if(validateForm(projectForm.projects)){
+			updateProjectData()
+			console.log('Changes saved')
+		} 
+>>>>>>> b2f8bec3d80d91ee713cb474ef70cdf4c354189a
 	}
 
 	return {

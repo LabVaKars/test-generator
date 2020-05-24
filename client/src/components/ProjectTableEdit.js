@@ -44,7 +44,7 @@ export default function ProjectTableEdit(props) {
 	return (
 		<>
 			<div className="card-header">
-				<h3>My created projects</h3>
+				<h3>My projects</h3>
 			</div>
 			{projectForm.hasChanges
 				? <div className="alert alert-danger m-0">You have unsaved changes</div>
@@ -76,7 +76,7 @@ export default function ProjectTableEdit(props) {
 			<div className="card-footer">
 				<Button 
 					name="Add Project" 
-					icon={<i className="fas fa-plus-square"></i>} 
+					// icon={<i className="fas fa-plus-square"></i>} 
 					handleClick={addProject} />
 				<Button 
 					name="Save Changes" 

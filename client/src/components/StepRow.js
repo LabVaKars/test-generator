@@ -40,6 +40,7 @@ export default function StepRow(props) {
 		scope,
 		name,
 		isSelected,
+		errors,
 		form,
 		id,
 		index,
@@ -87,8 +88,15 @@ export default function StepRow(props) {
 
 	drag(drop(ref))
 
+	console.log(errors);
+	
+
+	let bgColor = '#ffffff'
+	if(Object.keys(errors).length > 0) bgColor = '#f8d7da'
+	if(isSelected) bgColor = '#d4edda'
+	
 	const trStyle = {
-		backgroundColor: (isSelected) ? 'green' : 'white',
+		backgroundColor: bgColor,
 		opacity: isDragging ? 0 : 1,
 	}
 

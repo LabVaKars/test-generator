@@ -1,13 +1,14 @@
 import { useReducer, useState } from "react"
 import shortid from 'shortid'
+import update from 'immutability-helper'
 
 import testService from 'services/test.service'
 import StepFormReducer from 'reducers/TestReducers/StepForm.reducer'
 import { ADD_STEP, DELETE_STEP, MOVE_STEP, CHANGE_STEP_BY_ID, CLONE_STEP } from 'constants/TestTypes/StepForm.types'
 import { EMPTY_STEP } from 'constants/Step.types'
 import { SET_STEPS, TOGGLE_SELECT_STEP, INIT_STEPS } from 'constants/TestTypes/StepForm.types'
-import { SELECT_ELEM } from "../constants/Step.types"
-import { isFlowPredicate } from "@babel/types"
+import { SELECT_ELEM, EMPTY_ELEM_STEP } from "../constants/Step.types"
+import { SAVE_CHANGES, SET_ERRORS } from "../constants/TestTypes/StepForm.types"
 
 function useStepTableForm(projectId, groupId, testId){
 
@@ -20,6 +21,33 @@ function useStepTableForm(projectId, groupId, testId){
 
     const [stepsLoading, setStepsLoading] = useState(false)
 
+    function validateForm(steps){
+        let noErrors = true
+        
+        for(let step of steps) {
+
+            let errors = {}
+            if(step.stype == EMPTY_STEP){
+                noErrors = false
+                errors.step = 'Empty steps not allowed! Must select exact step type'
+            }
+            if(step.stype == SELECT_ELEM){
+                errors[SELECT_ELEM] = {}
+                if(step.form.name.length == 0){
+                    noErrors = false
+                    errors[SELECT_ELEM].name = 'This field is required'
+                }
+                if(step.form.cssSelector.length == 0){
+                    noErrors = false
+                    errors[SELECT_ELEM].cssSelector = 'This field is required'
+                }
+                if(Object.keys(errors[SELECT_ELEM]).length == 0) errors[SELECT_ELEM] = undefined
+            }
+            stepFormR({type:SET_ERRORS, id: step.id, errors: errors})
+        }
+        return noErrors
+    }
+
     function serverToLocalState(steps){
         // let toLocal
         let result = steps.map((p) => {
@@ -31,6 +59,7 @@ function useStepTableForm(projectId, groupId, testId){
                 elemId: (p.scope == "Element") ? p.elemId : null,
                 stype: p.stype,
                 scope: p.scope,
+                errors: {},
                 form: p.form,
             }
             // if(p.scope == "Element") toLocal.elemId = p.elemId
@@ -108,8 +137,11 @@ function useStepTableForm(projectId, groupId, testId){
 	}
 
 	function saveStepChanges(){
-		updateStepData()
-		console.log('Changes saved')
+        if(validateForm(stepForm.steps)){
+            updateStepData()
+            console.log('Changes saved')
+        }
+		
     }
     
     return {

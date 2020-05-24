@@ -7,7 +7,7 @@ import browserUrlFormReducer from 'reducers/StepReducers/BrowserUrlForm.reducer'
 import { CLEAN_FORM } from 'constants/StepTypes/StepFormCommon.types'
 import browserActionFormReducer from 'reducers/StepReducers/BrowserActionForm.reducer'
 import { SELECT_ELEM, ELEM_SET_VALUE, ELEM_ASSERT_STATE, ELEM_ASSERT_HTML_ATTR, ELEM_ASSERT_CSS_PROP, ELEM_ASSERT_VALUE, ELEM_ASSERT_TEXT, ELEM_ASSERT_TAG_NAME, ELEM_ASSERT_COOR, ELEM_ASSERT_SIZE, COOKIE_ASSERT, COOKIE_DELETE, COOKIE_UPDATE, BROWSER_ASSERT_TITLE, BROWSER_ASSERT_URL, PROMPT_ACTION, PROMPT_ASSERT, PROMPT_SET_VALUE, WINDOW_ASSERT_COOR, WINDOW_ASSERT_SIZE, WINDOW_SET_COOR, WINDOW_SET_SIZE, ELEM_CLICK } from '../../constants/Step.types'
-import { ADD_ELEM_STEP } from '../../constants/TestTypes/StepForm.types'
+import { ADD_ELEM_STEP, SAVE_CHANGES, SET_ERRORS } from '../../constants/TestTypes/StepForm.types'
 import selectElemReducer from '../StepReducers/SelectElem.reducer'
 import ElementSetValueReducer from '../StepReducers/ElemSetValue.reducer'
 import AssertElemStateReducer from '../StepReducers/AssertElemState.reducer'
@@ -75,6 +75,7 @@ const handlers = {
 			id, 
 			stype, 
 			scope: "Document",
+			errors: {},
 			form,
 			isSelected: false
 		}]}})
@@ -90,42 +91,12 @@ const handlers = {
 			id, 
 			elemId,
 			scope: "Element",
+			errors: {},
 			stype, 
 			form,
 			isSelected: false
 		}]}})
 	},
-	// [UPDATE_ELEM_STEP_NAME]: (state, {id, name}) => {
-	// let elemSteps = state.steps.filter(s => {
-	// 	return s.scope == "Element" && s.elemId == id
-	// })
-	// const steps = state.steps
-	// 	elemSteps.forEach(s => {
-	// 		return update(steps)
-	// 	})
-	// 	return update(state, {steps: {[index]: {$merge: {name: name}}}})
-	// },
-	// [UPDATE_ELEM_STEP_CSS]: (state, {id, cssSelector}) => {
-	// 	let index = state.steps.findIndex(s => {
-	// 		return s.id == id
-	// 	})
-	// 	return update(state, {steps: {[index]: {$merge: {cssSelector: cssSelector}}}})
-	// },
-	// [CLONE_STEP]: (state, {id}) => {
-	// 	let index = state.steps.findIndex((s) => {
-	// 		return s.isSelected == true
-	// 	})
-	// 	if(index != -1){
-	// 		let clone = update(state.steps[index], {$merge: {id: id}})
-	// 		state = update(state, {steps: {$splice: [
-	// 			[index + 1, 0, clone]
-	// 		]}})
-	// 		console.log(state)
-	// 		return state
-	// 	} else {
-	// 		return state
-	// 	}
-	// },
 	[DELETE_STEP]: (state, {id}) => {
 		let index = state.steps.findIndex((step) => {
 			return step.id == id
@@ -192,10 +163,26 @@ const handlers = {
 			return state
 		}
 	},
+	[SET_ERRORS]: (state, {id, errors}) => {
+		let index = state.steps.findIndex((step) => {
+			return step.id == id
+		})
+		return update(state, {steps: {[index]: {$merge: {errors: errors}}}})
+	},
+	[SAVE_CHANGES]: (state) => {
+		return update(state, {$merge: {hasChanges: false}})
+	},
 	DEFAULT: state => state,
 }
 
 const StepFormReducer = (state, action) => {
+	if(state.hasChanges == false && 
+        action.type != TOGGLE_SELECT_STEP &&
+        action.type != SAVE_CHANGES &&
+        action.type != INIT_STEPS
+	){
+		state = update(state, {$merge: {hasChanges: true}})
+	}
 	let handle = handlers[action.type] || handlers.DEFAULT
 	return handle(state, action)
 }

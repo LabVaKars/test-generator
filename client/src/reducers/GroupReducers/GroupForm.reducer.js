@@ -1,9 +1,6 @@
 import update from 'immutability-helper'
-import { INIT_GROUPS, ADD_GROUP, DELETE_GROUP, TOGGLE_SELECT_GROUP, CHANGE_NAME, CHANGE_DESCRIPTION, SAVE_CHANGES, MOVE_GROUP } from '../../constants/GroupTypes/Group.types'
+import { INIT_GROUPS, ADD_GROUP, DELETE_GROUP, TOGGLE_SELECT_GROUP, CHANGE_NAME, CHANGE_DESCRIPTION, SAVE_CHANGES, MOVE_GROUP, SET_ERRORS } from '../../constants/GroupTypes/Group.types'
 
-function selectedGroup(){
-
-}
 
 const handlers = {
 	[INIT_GROUPS]: (state, {groups}) => {
@@ -16,6 +13,7 @@ const handlers = {
 			serverId: null,
 			projectId: null,
 			groupId: null,
+			errors: {},
 			name: '',
 			description: '',
 			isSelected: false
@@ -67,6 +65,12 @@ const handlers = {
 		})
 		let newValue = {description: value}
 		return update(state, {groups: {[index]: {$merge: newValue}}})
+	},
+	[SET_ERRORS]: (state, {id, errors}) => {
+		let index = state.groups.findIndex((group) => {
+			return group.id == id
+		})
+		return update(state, {groups: {[index]: {$merge: {errors: errors}}}})
 	},
 	[SAVE_CHANGES]: (state) => {
 		return update(state, {$merge: {hasChanges: false}})

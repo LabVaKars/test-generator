@@ -18,7 +18,7 @@ export default function TestRowList(props) {
 				<thead>
 					<tr>
 						<th style={{width: '50px'}}>#</th>
-						<th style={{width: '50px'}}>ID</th>
+						{/* <th style={{width: '50px'}}>ID</th> */}
 						<th>Test name</th>
 						<th>Test description</th>
 						<th style={{width: '100px'}}>Actions</th>
