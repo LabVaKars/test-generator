@@ -1,5 +1,5 @@
 import { EQUALS, ENDS_WITH, STARTS_WITH, CONTAIN, MATCH } from "./StepTypes/StepFormCommon.types"
-import { IS_PRESENT, IS_VISIBLE, IS_DISABLED, IS_FOCUSED, IS_SELECTED } from "./StepTypes/AssertElemState.types"
+import { IS_PRESENT, IS_VISIBLE, IS_ENABLED, IS_FOCUSED, IS_SELECTED } from "./StepTypes/AssertElemState.types"
 
 export let comparatorOptions = [
     {name: "Equals", value: EQUALS},
@@ -12,8 +12,8 @@ export let comparatorOptions = [
 export let elemStateOptions = [
     {name: "Present", value: IS_PRESENT},
     {name: "Visible", value: IS_VISIBLE},
-    {name: "Disabled", value: IS_DISABLED},
-    {name: "Focused", value: IS_FOCUSED},
+    {name: "Enabled", value: IS_ENABLED},
+    // {name: "Focused", value: IS_FOCUSED},
     {name: "Selected", value: IS_SELECTED},
 ]
 

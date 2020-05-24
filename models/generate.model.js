@@ -14,7 +14,7 @@ const MATCH =        `${SIGN_PREFIX}:MATCH`
 const STATE_PREFIX = 'ASSERT_STATE'
 const IS_PRESENT =  `${STATE_PREFIX}:IS_PRESENT`
 const IS_VISIBLE =  `${STATE_PREFIX}:IS_VISIBLE`
-const IS_DISABLED = `${STATE_PREFIX}:IS_DISABLED`
+const IS_ENABLED = `${STATE_PREFIX}:IS_ENABLED`
 const IS_FOCUSED =  `${STATE_PREFIX}:IS_FOCUSED`
 const IS_SELECTED = `${STATE_PREFIX}:IS_SELECTED`
 
@@ -28,43 +28,45 @@ async function getGeneratedCode(projectId, userEmail){
     // console.log(projectGroups);
     for (let i = 0; i < projectGroups.length; i++){
         let g = projectGroups[i]
-        // code += `"${i+1}. ${g.name} - ${g.description}": function(browser){\n`
+        code += `// ${g.name} BEGIN\n`;
         code += (await recSubGroup(g.projectId, String(g._id), userEmail))
-        // code += '}\n'
+        code += `// ${g.name} END\n`;
     }
     code += `}`
     return code
 }
 
 async function recSubGroup(projectId, groupId, userEmail, ){
-    debugger
-    console.log(`recSubGroup: ${projectId}, ${groupId}`);
     let code = ``
     let subGroups = (await groupModel.getSubGroups(projectId, groupId, userEmail))
     console.log("SUBGROUPS", subGroups)
     if(subGroups.length > 0){
         for(let i = 0; i<subGroups.length; i++){
             let g = subGroups[i]
+            code += `// ${g.name} BEGIN\n`;
             code += (await recSubGroup(g.projectId, String(g._id), userEmail))
+            code += `// ${g.name} END\n`;
         }
     }
+    
     let subTests = (await testModel.getSubTests(projectId, groupId, userEmail))
     if(subTests.length > 0){
         for(let j=0; j<subTests.length; j++){
             let t = subTests[j]
-            code += (await generateTestCode(t.projectId, t.groupId, t._id))
+            code += (await generateTestCode(t.name, t.projectId, t.groupId, t._id))
         }
     }
     return code
 }
 
-async function generateTestCode(projectId, groupId, testId){
+async function generateTestCode(testName, projectId, groupId, testId){
     let code = ``
     console.log(`generateTestCode: ${projectId}, ${testId}`);
     let steps = await testModel.getSteps(projectId, groupId, testId)
     if(steps.length > 0){
-        code += `"Test name": function(browser){\n`
-        code += `browser\n`;
+        code += `"${testName}": function(browser){\n`
+        code += `browser.useCss();\n`;
+        code += `browser.init();\n`;
         for(let i=0; i<steps.length; i++){
             let s = steps[i]
             code += generateStepCode(s)
@@ -75,7 +77,7 @@ async function generateTestCode(projectId, groupId, testId){
 }
 
 function generateStepCode(step){
-    let code = `browser.useCss();`
+    let code = ``
     let form = step.form
     let action
     let comparator
@@ -143,7 +145,7 @@ function generateStepCode(step){
         case stepTypes.ELEM_SET_VALUE:
             comparator = getComparator(form.comparator)
             sign = getSign(form.sign)
-            code += `browser.css(${cssSelector}).setValue(${form.value})'\n`
+            code += `browser.css(${cssSelector}).setValue(${form.value});\n`
         break
         case stepTypes.ELEM_ASSERT_STATE:
             estype = getElementState(form.estype)
@@ -207,16 +209,16 @@ function getComparator(comparator){
 
 function getElementState(estype){
     switch(estype){
-        case IS_DISABLED:
-            return ''
-        case IS_FOCUSED:
-            return ''
+        case IS_ENABLED:
+            return '.enabled'
+        // case IS_FOCUSED:
+        //     return ''
         case IS_PRESENT:
-            return ''
+            return '.present'
         case IS_SELECTED:
-            return ''
+            return '.selected'
         case IS_VISIBLE:
-            return ''
+            return '.visible'
     }
 }
 

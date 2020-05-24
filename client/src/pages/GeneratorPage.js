@@ -37,6 +37,12 @@ export default function GeneratorPage() {
 		fetchData()
 	},[])
 
+	function copyToClipboard(){
+		let copyText = document.getElementById("generatedCode");
+		copyText.select();
+		document.execCommand("copy");
+	}
+
 	async function generateCode(projectId){
 		let code = await generateService.getGeneratedCode(projectId)
 		console.log(code);
@@ -57,10 +63,11 @@ export default function GeneratorPage() {
 					</div>
 					<Select options={projects} handleChange={handleChange} selectedIdx={0} />
                 	<Button handleClick={() => generateCode(selectedId)} name="Generate" disabled={selectedId.length == 0}/>
+					<Button handleClick={copyToClipboard} name="Copy to Clipboard" />
 				</div>
 				<div className="form-group">
 					<textarea className="form-control" id="generatedCode" rows="50"
-						value={generatedCode} disabled
+						value={generatedCode} readOnly
 					/>
 				</div>
 			</div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { IS_PRESENT, IS_VISIBLE, IS_DISABLED, IS_FOCUSED, IS_SELECTED } from '../../constants/StepTypes/AssertElemState.types'
+import { IS_PRESENT, IS_VISIBLE, IS_ENABLED, IS_FOCUSED, IS_SELECTED } from '../../constants/StepTypes/AssertElemState.types'
 import { elemStateOptions } from 'constants/Selects'
 
 AssertElemStateRow.propTypes = {

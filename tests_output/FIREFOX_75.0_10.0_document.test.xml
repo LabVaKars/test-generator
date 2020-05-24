@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="1">
+
+  <testsuite name="document.test"
+    errors="0" failures="1" hostname="" id="" package="document.test" skipped="0"
+    tests="1" time="5.132" timestamp="">
+  
+    <testcase name="Test name" classname="document.test" time="5.132" assertions="2">
+
+      <failure message="Expected cookie &#34;asd&#34; to not equal: [0;33m&#34;asd&#34;[0m - no cookie &#34;asd&#34; was found - expected [0;32m&#34;not equal &#39;asd&#39;&#34;[0m but got: [0;31m&#34;not present&#34;[0m[0;90m (7ms)[0m">    at Object.Test name (C:\Study\Test_Generator\__tests_ui__\document.test.js:9:20)
+    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+
+    
+      <failure message="    at Object.Test name (C:\Study\Test_Generator\__tests_ui__\document.test.js:9:20)">    at process._tickCallback (internal/process/next_tick.js:68:7)</failure>
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

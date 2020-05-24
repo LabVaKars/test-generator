@@ -14,9 +14,7 @@ function useProjectTableForm(){
 
 	const [projectForm, projectFormR] = useReducer(ProjectFormReducer, initialState)
 
-<<<<<<< HEAD
 	const [projectsLoading, setProjectsLoading] = useState(false)
-=======
 	function validateForm(projects){
 		let noErrors = true
 		for(let project of projects){
@@ -29,7 +27,6 @@ function useProjectTableForm(){
 		}
 		return noErrors
 	}
->>>>>>> b2f8bec3d80d91ee713cb474ef70cdf4c354189a
 
 	function serverToLocalState(projects){
 		console.log(projects)
@@ -93,16 +90,13 @@ function useProjectTableForm(){
 	}
 
 	function saveChanges(){
-<<<<<<< HEAD
 		updateProjectData()
 		console.log('Changes saved')
 
-=======
 		if(validateForm(projectForm.projects)){
 			updateProjectData()
 			console.log('Changes saved')
 		} 
->>>>>>> b2f8bec3d80d91ee713cb474ef70cdf4c354189a
 	}
 
 	return {
